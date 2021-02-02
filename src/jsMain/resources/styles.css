@@ -10,6 +10,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  background-position: center;
+  background-size: cover;
 }
 
 .menu-item {
@@ -21,6 +23,9 @@
   justify-content: center;
   border: 1px solid black;
   margin: 0 7.5px 15px;
+}
+.menu-item.large {
+  height: 380px;
 }
 .menu-item:first-child {
   margin-right: 7.5px;

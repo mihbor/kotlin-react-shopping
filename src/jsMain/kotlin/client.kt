@@ -9,7 +9,7 @@ fun main() {
       ?.also { it.innerHTML = "" }
       ?.also {
         render(it) {
-          child(homepage) {}
+          child(pages.homePage) {}
         }
       }
   }
