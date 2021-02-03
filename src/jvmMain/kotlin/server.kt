@@ -12,7 +12,9 @@ import kotlinx.html.*
 fun HTML.index() {
   head {
     title("Hello from Ktor!")
-    link(href = "/static/styles.css", rel = "stylesheet")
+    link(rel="stylesheet", href="/static/styles.css")
+    link(rel="preconnect", href="https://fonts.gstatic.com")
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap")
   }
   body {
     div {

@@ -14,13 +14,18 @@ val menuItem = functionalComponent<Section> { props ->
   div {
     css {
       classes = mutableListOf("menu-item", props.size)
-      backgroundImage = Image("url(${props.image})")
+    }
+    div {
+      css {
+        classes = mutableListOf("background-image")
+        backgroundImage = Image("url(${props.image})")
+      }
     }
     div {
       css {
         classes = mutableListOf("content")
       }
-      h1(classes = "title") { +props.title }
+      h1(classes = "title") { +props.title.toUpperCase() }
       span(classes = "subtitle") { +"SHOP NOW" }
     }
   }
