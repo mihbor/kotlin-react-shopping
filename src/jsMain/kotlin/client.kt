@@ -2,6 +2,9 @@ import react.dom.render
 import kotlinx.browser.document
 import kotlinx.browser.window
 import react.child
+import react.router.dom.browserRouter
+import react.router.dom.route
+import react.router.dom.switch
 
 fun main() {
   window.onload = {
@@ -9,7 +12,16 @@ fun main() {
       ?.also { it.innerHTML = "" }
       ?.also {
         render(it) {
-          child(pages.homePage) {}
+          browserRouter {
+            switch {
+              route("/", exact = true) {
+                child(pages.homePage) { }
+              }
+              route("/hats") {
+                child(pages.hatsPage) { }
+              }
+            }
+          }
         }
       }
   }

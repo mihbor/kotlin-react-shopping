@@ -2,16 +2,21 @@ package components
 
 import kotlinx.css.Image
 import kotlinx.css.backgroundImage
+import kotlinx.html.js.onClickFunction
 import react.dom.h1
 import react.dom.span
 import react.functionalComponent
+import react.router.dom.useHistory
 import styled.css
 import styled.styledDiv as div
 
 @JsExport
 val menuItem = functionalComponent<Section> { props ->
-
+  val history = useHistory()
   div {
+    attrs {
+      onClickFunction = { history.push(props.title) }
+    }
     css {
       classes = mutableListOf("menu-item", props.size)
     }

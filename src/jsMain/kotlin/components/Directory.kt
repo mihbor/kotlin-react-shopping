@@ -11,11 +11,11 @@ class Section(var id: Int, var title: String, var image: String, var size: Strin
 @JsExport
 val directory = functionalComponent<RProps> {
   val (state, setState) = useState { listOf(
-    Section(1, "hats", "https://i.ibb.co/cvpntL1/hats.png"),
-    Section(2, "jackets", "https://i.ibb.co/px2tCc3/jackets.png"),
-    Section(3, "sneakers", "https://i.ibb.co/0jqHpnp/sneakers.png"),
-    Section(4, "womens", "https://i.ibb.co/GCCdy8t/womens.png", "large"),
-    Section(5, "mens", "https://i.ibb.co/R70vBrQ/men.png", "large")
+    Section(1, "hats", "/static/images/hats.jpeg"),
+    Section(2, "jackets", "/static/images/jackets.jpeg"),
+    Section(3, "sneakers", "/static/images/sneakers.jpeg"),
+    Section(4, "womens", "/static/images/womens.jpeg", "large"),
+    Section(5, "mens", "/static/images/mens.jpeg", "large")
   ) }
 
   div(classes = "directory-menu") {

@@ -8,16 +8,17 @@ group = "me.user"
 version = "1.0-SNAPSHOT"
 
 repositories {
+  mavenLocal()
   mavenCentral()
   jcenter()
   maven {
-    url = uri("https://dl.bintray.com/kotlin/ktor")
+    setUrl("https://dl.bintray.com/kotlin/ktor")
   }
   maven {
-    url = uri("https://dl.bintray.com/kotlin/kotlinx")
+    setUrl("https://dl.bintray.com/kotlin/kotlinx")
   }
   maven {
-    url = uri("https://dl.bintray.com/kotlin/kotlin-js-wrappers")
+    setUrl("https://dl.bintray.com/kotlin/kotlin-js-wrappers")
   }
 }
 kotlin {
@@ -83,15 +84,15 @@ kotlin {
 application {
   mainClassName = "ServerKt"
 }
-tasks.getByName<KotlinWebpack>("jsBrowserProductionWebpack") {
+tasks.getByName<KotlinWebpack>("jsBrowserDevelopmentWebpack") {
   outputFileName = "output.js"
 }
 tasks.getByName<Jar>("jvmJar") {
-  dependsOn(tasks.getByName("jsBrowserProductionWebpack"))
-  val jsBrowserProductionWebpack = tasks.getByName<KotlinWebpack>("jsBrowserProductionWebpack")
-  from(File(jsBrowserProductionWebpack.destinationDirectory, jsBrowserProductionWebpack.outputFileName))
-  from(File(jsBrowserProductionWebpack.destinationDirectory, jsBrowserProductionWebpack.outputFileName + ".map"))
-  from(File(jsBrowserProductionWebpack.destinationDirectory, "styles.css"))
+  dependsOn(tasks.getByName("jsBrowserDevelopmentWebpack"))
+  val jsBrowserWebpack = tasks.getByName<KotlinWebpack>("jsBrowserDevelopmentWebpack")
+  from(File(jsBrowserWebpack.destinationDirectory, jsBrowserWebpack.outputFileName))
+  from(File(jsBrowserWebpack.destinationDirectory, jsBrowserWebpack.outputFileName + ".map"))
+  from(File(jsBrowserWebpack.destinationDirectory, "styles.css"))
 }
 tasks.getByName<JavaExec>("run") {
   dependsOn(tasks.getByName<Jar>("jvmJar"))
