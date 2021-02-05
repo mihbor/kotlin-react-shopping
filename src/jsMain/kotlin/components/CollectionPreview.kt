@@ -2,6 +2,7 @@ package components
 
 import model.*
 import react.RProps
+import react.child
 import react.dom.h1
 import react.dom.div
 import react.functionalComponent
@@ -17,9 +18,13 @@ val collectionPreview = functionalComponent<CollectionPreviewProps> {
     h1(classes = "title") { +it.title }
     div(classes = "preview") {
       it.items.take(4).map {
-        div {
+        child(collectionItem) {
           key = "${it.id}"
-          +it.name
+          attrs {
+            name = it.name
+            price = it.price
+            imageUrl = it.imageUrl
+          }
         }
       }
     }

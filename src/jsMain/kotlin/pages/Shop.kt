@@ -25,6 +25,7 @@ val shopPage = functionalComponent<RProps> {
   div(classes = "shop-page") {
     state.map {
       child(collectionPreview) {
+        key = "${it.id}"
         attrs {
           title = it.title
           items = it.items
