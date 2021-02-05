@@ -1,7 +1,11 @@
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 
+val ktorVersion = "1.4.0"
+val serializationVersion = "1.0.0-RC"
+
 plugins {
   kotlin("multiplatform") version "1.4.10"
+  kotlin("plugin.serialization") version "1.4.0"
   application
 }
 group = "me.user"
@@ -46,7 +50,13 @@ kotlin {
     }
   }
   sourceSets {
-    val commonMain by getting
+    val commonMain by getting {
+      dependencies {
+        implementation(kotlin("stdlib-common"))
+        implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
+        implementation("io.ktor:ktor-client-core:$ktorVersion")
+      }
+    }
     val commonTest by getting {
       dependencies {
         implementation(kotlin("test-common"))
@@ -55,7 +65,11 @@ kotlin {
     }
     val jvmMain by getting {
       dependencies {
-        implementation("io.ktor:ktor-server-netty:1.4.0")
+        implementation("io.ktor:ktor-serialization:$ktorVersion")
+        implementation("io.ktor:ktor-server-core:$ktorVersion")
+        implementation("io.ktor:ktor-server-netty:$ktorVersion")
+        implementation("ch.qos.logback:logback-classic:1.2.3")
+        implementation("io.ktor:ktor-websockets:$ktorVersion")
         implementation("io.ktor:ktor-html-builder:1.4.0")
         implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.7.2")
       }
@@ -67,6 +81,10 @@ kotlin {
     }
     val jsMain by getting {
       dependencies {
+        implementation("io.ktor:ktor-client-js:$ktorVersion")
+        implementation("io.ktor:ktor-client-json-js:$ktorVersion")
+        implementation("io.ktor:ktor-client-serialization-js:$ktorVersion")
+
         implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.7.2")
         implementation("org.jetbrains:kotlin-react:17.0.1-pre.144-kotlin-1.4.21")
         implementation("org.jetbrains:kotlin-react-dom:17.0.1-pre.144-kotlin-1.4.21")

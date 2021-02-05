@@ -1,9 +1,11 @@
-val SHOP_DATA = listOf(
+import model.*
+
+val collectionsData = listOf(
   Collection(
     id= 1,
     title= "Hats",
     routeName= "hats",
-    items= listOf(
+    items= arrayOf(
       Item(
         id = 1,
         name = "Brown Brim",
@@ -64,7 +66,7 @@ val SHOP_DATA = listOf(
     id = 2,
     title = "Sneakers",
     routeName = "sneakers",
-    items = listOf(
+    items = arrayOf(
       Item(
         id = 1,
         name = "Adidas NMD",
@@ -119,7 +121,7 @@ val SHOP_DATA = listOf(
     id = 3,
     title = "Jackets",
     routeName = "jackets",
-    items = listOf(
+    items = arrayOf(
       Item(
         id = 1,
         name = "Black Jean Shearling",
@@ -156,7 +158,7 @@ val SHOP_DATA = listOf(
     id = 4,
     title = "Womens",
     routeName = "womens",
-    items = listOf(
+    items = arrayOf(
       Item(
         id = 1,
         name = "Blue Tanktop",
@@ -205,7 +207,7 @@ val SHOP_DATA = listOf(
     id = 5,
     title = "Mens",
     routeName = "mens",
-    items = listOf(
+    items = arrayOf(
       Item(
         id = 1,
         name = "Camo Down Vest",

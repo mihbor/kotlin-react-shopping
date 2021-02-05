@@ -7,5 +7,5 @@ import react.functionalComponent
 
 @JsExport
 val homePage = functionalComponent<RProps> {
-    child(directory) { }
+  child(directory) { }
 }

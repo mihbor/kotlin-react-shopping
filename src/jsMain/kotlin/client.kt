@@ -17,8 +17,8 @@ fun main() {
               route("/", exact = true) {
                 child(pages.homePage) { }
               }
-              route("/hats") {
-                child(pages.hatsPage) { }
+              route("/shop") {
+                child(pages.shopPage) { }
               }
             }
           }
