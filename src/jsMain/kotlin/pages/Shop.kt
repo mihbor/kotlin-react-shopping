@@ -33,5 +33,4 @@ val shopPage = functionalComponent<RProps> {
       }
     }
   }
-
 }

@@ -14,7 +14,7 @@ import kotlinx.html.*
 
 fun HTML.index() {
   head {
-    title("Hello from Ktor!")
+    title("Shopping in React Kotlin")
     link(rel="stylesheet", href="/static/styles.css")
     link(rel="preconnect", href="https://fonts.gstatic.com")
     link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap")
@@ -22,7 +22,7 @@ fun HTML.index() {
   body {
     div {
       id = "root"
-      +"Hello from Ktor"
+      +"Page loading..."
     }
     script(src = "/static/output.js") {}
   }

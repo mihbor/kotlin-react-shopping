@@ -1,3 +1,4 @@
+import components.header
 import react.dom.render
 import kotlinx.browser.document
 import kotlinx.browser.window
@@ -13,6 +14,7 @@ fun main() {
       ?.also {
         render(it) {
           browserRouter {
+            child(header) {}
             switch {
               route("/", exact = true) {
                 child(pages.homePage) { }
