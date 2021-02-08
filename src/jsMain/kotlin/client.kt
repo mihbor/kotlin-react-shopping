@@ -22,6 +22,9 @@ fun main() {
               route("/shop") {
                 child(pages.shopPage) { }
               }
+              route("/login") {
+                child(pages.loginPage) { }
+              }
             }
           }
         }

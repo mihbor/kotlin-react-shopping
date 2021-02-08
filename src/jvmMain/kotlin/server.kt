@@ -49,6 +49,9 @@ fun main() {
       get("/shop") {
         call.respondHtml(HttpStatusCode.OK, HTML::index)
       }
+      get("/login") {
+        call.respondHtml(HttpStatusCode.OK, HTML::index)
+      }
       get(collectionsPath) {
         call.respond(collectionsData)
       }
