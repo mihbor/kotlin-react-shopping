@@ -9,6 +9,8 @@ import react.dom.*
 import react.functionalComponent
 import react.useState
 
+import kotlinx.html.ButtonType
+
 val signIn = functionalComponent<RProps> {
   val (state, setState) = useState(emptyMap<String, String>())
 
@@ -46,10 +48,10 @@ val signIn = functionalComponent<RProps> {
           onChangeFunction={setState(state + Pair("password", (it.target as HTMLInputElement).value))}
         }
       }
-      input {
+      button {
         attrs {
-          type=submit
-          value="Submit Form"
+          type=ButtonType.submit
+          label="Sign In"
         }
       }
     }
