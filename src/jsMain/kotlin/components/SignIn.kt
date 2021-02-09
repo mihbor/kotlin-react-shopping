@@ -1,7 +1,6 @@
 package components
 
 import kotlinx.html.InputType.*
-import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onSubmitFunction
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.events.Event
@@ -27,24 +26,29 @@ val signIn = functionalComponent<RProps> {
         onSubmitFunction=handleSubmit
       }
 
-      input(name="email", type=email) {
+      formInput {
         attrs {
+          type=email
+          name="email"
           required=true
-          value=state["email"]?:""
+          value=state["email"]
+          label="email"
           onChangeFunction={setState(state + Pair("email", (it.target as HTMLInputElement).value))}
         }
       }
-      label { +"EMAIL" }
-      input(name="password", type=password) {
+      formInput {
         attrs {
+          type=password
+          name="password"
           required=true
-          value=state["password"]?:""
+          value=state["password"]
+          label="password"
           onChangeFunction={setState(state + Pair("password", (it.target as HTMLInputElement).value))}
         }
       }
-      label { +"PASSWORD" }
-      input(type=submit) {
+      input {
         attrs {
+          type=submit
           value="Submit Form"
         }
       }
