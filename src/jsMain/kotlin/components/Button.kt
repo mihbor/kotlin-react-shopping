@@ -14,10 +14,7 @@ external interface ButtonProps : RProps {
 
 @JsExport
 val button = functionalComponent<ButtonProps> { props ->
-  button(classes="button") {
-    attrs {
-      props.type?.let{type = it}
-    }
+  button(type = props.type, classes="button") {
     +props.label
   }
 }

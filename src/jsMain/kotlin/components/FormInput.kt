@@ -20,17 +20,15 @@ external interface FormInputProps : RProps {
 @JsExport
 val formInput = functionalComponent<FormInputProps> { props ->
   div(classes = "group") {
-    input(classes = "form-input") {
+    input(name = props.name, type = props.type, classes = "form-input") {
       attrs {
-        props.type?.let{type = it}
-        props.name?.let{name = it}
-        value = props.value?:""
+        value = props.value ?: ""
         props.required?.let{required = it}
-        props.onChangeFunction?.let{onChangeFunction=it}
+        props.onChangeFunction?.let{onChangeFunction = it}
       }
     }
     props.label?.let {
-      label(classes = "form-input-label${props.value?.let{if(it.length>0) " shrink" else null}?:""}") {
+      label(classes = "form-input-label${props.value?.let{ if (it.length > 0) " shrink" else null} ?: "" }") {
         +"${props.label}"
       }
     }

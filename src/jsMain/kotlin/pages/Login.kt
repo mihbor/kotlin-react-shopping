@@ -1,6 +1,7 @@
 package pages
 
 import components.signIn
+import components.signUp
 import react.RProps
 import react.child
 import react.dom.div
@@ -10,5 +11,6 @@ import react.functionalComponent
 val loginPage = functionalComponent<RProps> {
   div(classes="login") {
     child(signIn) { }
+    child(signUp) { }
   }
 }

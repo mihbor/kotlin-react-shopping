@@ -1,5 +1,6 @@
 package components
 
+import kotlinx.html.ButtonType
 import kotlinx.html.InputType.*
 import kotlinx.html.js.onSubmitFunction
 import org.w3c.dom.HTMLInputElement
@@ -9,7 +10,7 @@ import react.dom.*
 import react.functionalComponent
 import react.useState
 
-import kotlinx.html.ButtonType
+//import signInWithGoogle
 
 val signIn = functionalComponent<RProps> {
   val (state, setState) = useState(emptyMap<String, String>())
@@ -17,6 +18,7 @@ val signIn = functionalComponent<RProps> {
   val handleSubmit: (Event) -> Unit = {
     it.preventDefault()
     setState(emptyMap())
+    console.log("Submitted sing in")
   }
 
   div(classes="sign-in") {
@@ -25,6 +27,7 @@ val signIn = functionalComponent<RProps> {
 
     form {
       attrs {
+        name="sign-in"
         onSubmitFunction=handleSubmit
       }
 
@@ -35,7 +38,7 @@ val signIn = functionalComponent<RProps> {
           required=true
           value=state["email"]
           label="email"
-          onChangeFunction={setState(state + Pair("email", (it.target as HTMLInputElement).value))}
+          onChangeFunction={setState(state + ("email" to (it.target as HTMLInputElement).value))}
         }
       }
       formInput {
@@ -45,7 +48,7 @@ val signIn = functionalComponent<RProps> {
           required=true
           value=state["password"]
           label="password"
-          onChangeFunction={setState(state + Pair("password", (it.target as HTMLInputElement).value))}
+          onChangeFunction={setState(state + ("password" to (it.target as HTMLInputElement).value))}
         }
       }
       button {
@@ -54,6 +57,14 @@ val signIn = functionalComponent<RProps> {
           label="Sign In"
         }
       }
+//      button {
+//        attrs {
+//          onClickFunction={signInWithGoogle()}
+//          label="Sign In With Google"
+//        }
+//      }
     }
   }
 }
+
+
