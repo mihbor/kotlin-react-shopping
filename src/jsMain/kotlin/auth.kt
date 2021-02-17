@@ -40,7 +40,7 @@ data class User(val id: String, val displayName: String?, val email: String?, va
 
 suspend fun createUserProfile(auth: FirebaseUser): firebase.firestore.DocumentReference {
   val doc = firestore.doc("users/${auth.uid}")
-  MainScope().launch {
+  scope.launch {
     val snapshot = doc.get().await()
     if (!snapshot.exists) {
       doc.set(encode(User(auth.uid, auth.displayName, auth.email, Date().getSeconds()), true)!!).await()
@@ -53,7 +53,7 @@ val authStateChanged = firebaseAuth.authStateChanged
 
 //@JsExport
 //fun signInWithGoogle() {
-//  MainScope().launch {
+//  scope.launch {
 //    auth.js.signInWithPopup(firebase.auth.GoogleAuthProvider())
 //  }
 //}

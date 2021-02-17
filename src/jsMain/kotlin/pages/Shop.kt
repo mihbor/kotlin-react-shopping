@@ -4,12 +4,10 @@ import components.collectionPreview
 import getCollections
 import model.*
 
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import react.*
 import react.dom.div
-
-private val scope = MainScope()
+import scope
 
 @JsExport
 val shopPage = functionalComponent<RProps> {

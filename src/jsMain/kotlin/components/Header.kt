@@ -1,7 +1,9 @@
 package components
 
-//import User
-//import firebaseAuth
+import User
+import firebaseAuth
+import scope
+
 import kotlinx.coroutines.launch
 import kotlinx.html.js.onClickFunction
 import react.RProps
@@ -9,10 +11,9 @@ import react.dom.div
 import react.dom.img
 import react.functionalComponent
 import react.router.dom.routeLink
-import scope
 
 external interface HeaderProps : RProps {
-//  var user: User?
+  var user: User?
 }
 
 val header = functionalComponent<HeaderProps> { props ->
@@ -27,7 +28,7 @@ val header = functionalComponent<HeaderProps> { props ->
       routeLink(to="/contact", className="option") {
         +"CONTACT"
       }
-      /*props.user?.let {
+      props.user?.let {
         div(classes = "option") {
           attrs {
             onClickFunction = {
@@ -38,7 +39,7 @@ val header = functionalComponent<HeaderProps> { props ->
           }
           +"SIGN OUT"
         }
-      } ?: */routeLink(to="/login", className="option") {
+      } ?: routeLink(to="/login", className="option") {
         +"SIGN IN"
       }
     }

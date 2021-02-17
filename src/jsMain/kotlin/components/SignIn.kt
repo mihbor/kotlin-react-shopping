@@ -1,5 +1,7 @@
 package components
 
+import firebaseAuth
+import kotlinx.coroutines.launch
 import kotlinx.html.ButtonType
 import kotlinx.html.InputType.*
 import kotlinx.html.js.onSubmitFunction
@@ -9,6 +11,7 @@ import react.RProps
 import react.dom.*
 import react.functionalComponent
 import react.useState
+import scope
 
 //import signInWithGoogle
 
@@ -17,12 +20,15 @@ val signIn = functionalComponent<RProps> {
 
   val handleSubmit: (Event) -> Unit = {
     it.preventDefault()
-    setState(emptyMap())
-    console.log("Submitted sing in")
+    scope.launch {
+      firebaseAuth.signInWithEmailAndPassword(state["email"]!!, state["password"]!!)
+      setState(emptyMap())
+      console.log("Submitted sign in")
+    }
   }
 
   div(classes="sign-in") {
-    h2 { +"I already have an account" }
+    h2(classes = "title")  { +"I already have an account" }
     span { +"Sign in with email and password" }
 
     form {

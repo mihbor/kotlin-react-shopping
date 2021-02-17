@@ -3,7 +3,6 @@ package components
 import firebaseAuth
 import createUserProfile
 import kotlinx.browser.window
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.html.ButtonType
 import kotlinx.html.InputType.*
@@ -14,6 +13,7 @@ import react.RProps
 import react.dom.*
 import react.functionalComponent
 import react.useState
+import scope
 
 @JsExport
 val signUp = functionalComponent<RProps> {
@@ -27,12 +27,11 @@ val signUp = functionalComponent<RProps> {
   }
   val handleSubmit: (Event) -> Unit = {
     it.preventDefault()
-    console.log("Submitted sing up")
     if (state["password"] != state["passwordConfirm"]) {
       window.alert("Passwords don't match")
       console.log("Passwords don't match")
     } else {
-      MainScope().launch {
+      scope.launch {
         val user = firebaseAuth.createUserWithEmailAndPassword(state["email"]!!, state["password"]!!).user
         user?.let{
           createUserProfile(it)
@@ -40,6 +39,7 @@ val signUp = functionalComponent<RProps> {
         }
       }
     }
+    console.log("Submitted sing up")
   }
 
   div(classes = "sign-up") {
