@@ -115,7 +115,6 @@ tasks.getByName<Jar>("jvmJar") {
   val jsBrowserWebpack = tasks.getByName<KotlinWebpack>("jsBrowserDevelopmentWebpack")
   from(File(jsBrowserWebpack.destinationDirectory, jsBrowserWebpack.outputFileName))
   from(File(jsBrowserWebpack.destinationDirectory, jsBrowserWebpack.outputFileName + ".map"))
-  from(File(jsBrowserWebpack.destinationDirectory, "styles.css"))
 }
 tasks.getByName<JavaExec>("run") {
   dependsOn(tasks.getByName<Jar>("jvmJar"))
