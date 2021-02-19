@@ -2,6 +2,7 @@ package shopping
 
 import kotlinx.browser.document
 import kotlinx.browser.window
+import react.child
 import react.dom.render
 import react.redux.provider
 import shopping.redux.store
@@ -13,7 +14,7 @@ fun main() {
       ?.also {
         render(it) {
           provider(store) {
-            app {}
+            child(app) {}
           }
         }
       }
