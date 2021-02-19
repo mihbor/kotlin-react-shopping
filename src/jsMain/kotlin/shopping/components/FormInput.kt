@@ -1,12 +1,15 @@
-package components
+package shopping.components
 
 import kotlinx.html.InputType
 import kotlinx.html.js.onChangeFunction
 import org.w3c.dom.events.Event
-import react.*
+import react.RBuilder
+import react.RProps
+import react.child
 import react.dom.div
 import react.dom.input
 import react.dom.label
+import react.functionalComponent
 
 external interface FormInputProps : RProps {
   var type: InputType?

@@ -1,11 +1,11 @@
-package components
+package shopping.components
 
-import model.*
 import react.RProps
 import react.child
-import react.dom.h1
 import react.dom.div
+import react.dom.h1
 import react.functionalComponent
+import shopping.model.Item
 
 external interface CollectionPreviewProps : RProps {
   var title: String

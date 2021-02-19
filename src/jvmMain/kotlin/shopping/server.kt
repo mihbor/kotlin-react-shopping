@@ -1,3 +1,5 @@
+package shopping
+
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.html.respondHtml

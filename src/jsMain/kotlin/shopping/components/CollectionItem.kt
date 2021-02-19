@@ -1,4 +1,4 @@
-package components
+package shopping.components
 
 import kotlinx.css.Image
 import kotlinx.css.backgroundImage

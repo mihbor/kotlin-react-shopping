@@ -1,7 +1,5 @@
-package components
+package shopping.components
 
-import firebaseAuth
-import createUserProfile
 import kotlinx.browser.window
 import kotlinx.coroutines.launch
 import kotlinx.html.ButtonType
@@ -10,10 +8,16 @@ import kotlinx.html.js.onSubmitFunction
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.events.Event
 import react.RProps
-import react.dom.*
+import react.dom.div
+import react.dom.form
+import react.dom.h2
+import react.dom.span
 import react.functionalComponent
 import react.useState
-import scope
+import shopping.createUserProfile
+import shopping.firebaseAuth
+import shopping.model.User
+import shopping.scope
 
 @JsExport
 val signUp = functionalComponent<RProps> {
@@ -33,8 +37,9 @@ val signUp = functionalComponent<RProps> {
     } else {
       scope.launch {
         val user = firebaseAuth.createUserWithEmailAndPassword(state["email"]!!, state["password"]!!).user
+        console.log("Overriding displayName of ${user?.displayName} with ${state["displayName"]}")
         user?.let{
-          createUserProfile(it)
+          createUserProfile(User(it.uid, state["displayName"], it.email, it.metaData!!.creationTime!!))
           setState(emptyMap())
         }
       }

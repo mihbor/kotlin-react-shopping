@@ -1,4 +1,4 @@
-package model
+package shopping.model
 
 import kotlinx.serialization.Serializable
 

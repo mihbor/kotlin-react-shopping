@@ -1,7 +1,9 @@
-import react.dom.render
+package shopping
+
 import kotlinx.browser.document
 import kotlinx.browser.window
 import react.child
+import react.dom.render
 
 fun main() {
   window.onload = {

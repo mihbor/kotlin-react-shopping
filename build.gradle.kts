@@ -83,18 +83,22 @@ kotlin {
     }
     val jsMain by getting {
       dependencies {
-        implementation("io.ktor:ktor-client-js:$ktorVersion")
-        implementation("io.ktor:ktor-client-json-js:$ktorVersion")
-        implementation("io.ktor:ktor-client-serialization-js:$ktorVersion")
-        implementation("dev.gitlive:firebase-auth-js:$firebaseSdkVersion")
-        implementation("dev.gitlive:firebase-common-js:$firebaseSdkVersion")
-        implementation("dev.gitlive:firebase-firestore-js:$firebaseSdkVersion")
-
         implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.7.2")
+        implementation("org.jetbrains:kotlin-styled:5.2.0-pre.144-kotlin-$kotlinVersion")
+
         implementation("org.jetbrains:kotlin-react:17.0.1-pre.144-kotlin-$kotlinVersion")
         implementation("org.jetbrains:kotlin-react-dom:17.0.1-pre.144-kotlin-$kotlinVersion")
         implementation("org.jetbrains:kotlin-react-router-dom:5.2.0-pre.144-kotlin-$kotlinVersion")
-        implementation("org.jetbrains:kotlin-styled:5.2.0-pre.144-kotlin-$kotlinVersion")
+        implementation("org.jetbrains:kotlin-react-redux:7.2.1-pre.144-kotlin-$kotlinVersion")
+        implementation("org.jetbrains:kotlin-redux:4.0.5-pre.144-kotlin-$kotlinVersion")
+
+        implementation("io.ktor:ktor-client-js:$ktorVersion")
+        implementation("io.ktor:ktor-client-json-js:$ktorVersion")
+        implementation("io.ktor:ktor-client-serialization-js:$ktorVersion")
+
+        implementation("dev.gitlive:firebase-auth-js:$firebaseSdkVersion")
+        implementation("dev.gitlive:firebase-common-js:$firebaseSdkVersion")
+        implementation("dev.gitlive:firebase-firestore-js:$firebaseSdkVersion")
       }
     }
     val jsTest by getting {
@@ -105,7 +109,7 @@ kotlin {
   }
 }
 application {
-  mainClassName = "ServerKt"
+  mainClassName = "shopping.ServerKt"
 }
 tasks.getByName<KotlinWebpack>("jsBrowserDevelopmentWebpack") {
   outputFileName = "output.js"

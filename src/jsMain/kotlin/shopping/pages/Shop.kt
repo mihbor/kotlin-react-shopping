@@ -1,13 +1,12 @@
-package pages
-
-import components.collectionPreview
-import getCollections
-import model.*
+package shopping.pages
 
 import kotlinx.coroutines.launch
 import react.*
 import react.dom.div
-import scope
+import shopping.components.collectionPreview
+import shopping.getCollections
+import shopping.model.Collection
+import shopping.scope
 
 @JsExport
 val shopPage = functionalComponent<RProps> {

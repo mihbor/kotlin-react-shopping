@@ -1,4 +1,4 @@
-package components
+package shopping.components
 
 import kotlinx.html.ButtonType
 import react.RBuilder

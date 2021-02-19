@@ -1,11 +1,11 @@
-package pages
+package shopping.pages
 
-import components.signIn
-import components.signUp
 import react.RProps
 import react.child
 import react.dom.div
 import react.functionalComponent
+import shopping.components.signIn
+import shopping.components.signUp
 
 @JsExport
 val loginPage = functionalComponent<RProps> {

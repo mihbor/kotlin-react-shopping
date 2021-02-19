@@ -1,17 +1,21 @@
-package components
+package shopping.components
 
-import firebaseAuth
 import kotlinx.coroutines.launch
 import kotlinx.html.ButtonType
-import kotlinx.html.InputType.*
+import kotlinx.html.InputType.email
+import kotlinx.html.InputType.password
 import kotlinx.html.js.onSubmitFunction
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.events.Event
 import react.RProps
-import react.dom.*
+import react.dom.div
+import react.dom.form
+import react.dom.h2
+import react.dom.span
 import react.functionalComponent
 import react.useState
-import scope
+import shopping.firebaseAuth
+import shopping.scope
 
 //import signInWithGoogle
 

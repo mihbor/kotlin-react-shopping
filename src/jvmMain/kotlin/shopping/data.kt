@@ -1,4 +1,7 @@
-import model.*
+package shopping
+
+import shopping.model.Collection
+import shopping.model.Item
 
 val collectionsData = listOf(
   Collection(

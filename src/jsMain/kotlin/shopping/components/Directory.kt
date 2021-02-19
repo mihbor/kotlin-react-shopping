@@ -1,4 +1,4 @@
-package components
+package shopping.components
 
 import react.RProps
 import react.child
