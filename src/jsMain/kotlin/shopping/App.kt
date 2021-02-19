@@ -5,47 +5,56 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import react.*
-import react.redux.provider
+import react.redux.rConnect
 import react.router.dom.browserRouter
 import react.router.dom.route
 import react.router.dom.switch
+import redux.WrapperAction
 import shopping.components.header
 import shopping.model.User
-import shopping.redux.store
+import shopping.redux.UserEvent
+import shopping.redux.UserSignedIn
+import shopping.redux.UserSignedOut
 
 val scope = MainScope()
+interface AppProps : RProps {
+  var signIn: (User) -> Unit
+  var signOut: () -> Unit
+}
 
-@JsExport
-val app = functionalComponent<RProps> {
-  val (user, setUser) = useState(null as User?)
-
-  fun logout() {
-    setUser(null)
+val app = rConnect<UserEvent, WrapperAction, RProps, AppProps>({ dispatch, _ ->
+  signIn = { dispatch(UserSignedIn(it)) }
+  signOut = {
+    dispatch(UserSignedOut())
     console.log("Logged out")
   }
+})(
+  App::class.js.unsafeCast<RClass<RProps>>()
+)
 
-  useEffect(dependencies = listOf()) {
+class App : RComponent<AppProps, RState>() {
+
+  override fun componentDidMount() {
     scope.launch {
       authStateChanged.collect {
-        it?.let{
+        it?.let {
           createUserProfile(it.toUser())
-            .onSnapshot ({snapshot ->
+            .onSnapshot({ snapshot ->
               val decodedUser: User? = decode(snapshot.data())
               decodedUser?.let {
-                setUser(decodedUser)
+                props.signIn(decodedUser)
                 console.log("User ${decodedUser.email} display name ${decodedUser.displayName}")
-              } ?: logout()
+              } ?: props.signOut()
             }, console::log)
-        } ?: logout()
+        } ?: props.signOut()
       }
     }
   }
 
-  provider(store) {
+  override fun RBuilder.render() {
+
     browserRouter {
-      child(header) {
-        attrs.user = user
-      }
+      header {}
       switch {
         route("/", exact = true) {
           child(shopping.pages.homePage) { }
