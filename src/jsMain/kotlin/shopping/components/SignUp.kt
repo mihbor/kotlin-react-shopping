@@ -36,11 +36,16 @@ val signUp = functionalComponent<RProps> {
       console.log("Passwords don't match")
     } else {
       scope.launch {
-        val user = firebaseAuth.createUserWithEmailAndPassword(state["email"]!!, state["password"]!!).user
-        console.log("Overriding displayName of ${user?.displayName} with ${state["displayName"]}")
-        user?.let{
-          createUserProfile(User(it.uid, state["displayName"], it.email, it.metaData!!.creationTime!!))
-          setState(emptyMap())
+        try {
+          val user = firebaseAuth.createUserWithEmailAndPassword(state["email"]!!, state["password"]!!).user
+          console.log("Overriding displayName of ${user?.displayName} with ${state["displayName"]}")
+          user?.let{
+            createUserProfile(User(it.uid, state["displayName"], it.email, it.metaData!!.creationTime!!))
+            setState(emptyMap())
+          }
+        } catch (e: Throwable) {
+          console.log(e)
+          e.message?.let(window::alert)
         }
       }
     }
