@@ -24,18 +24,15 @@ val app = functionalComponent<RProps> {
 
   fun signOut() {
     dispatch(UserSignedOut())
-    console.log("Logged out")
   }
 
   fun signIn(user: User) {
     dispatch(UserSignedIn(user))
-    console.log("User ${user.email} display name ${user.displayName}")
   }
 
   useEffect {
     scope.launch {
       authStateChanged.collect {
-        console.log(it)
         it?.let {
           createUserProfile(it.toUser())
             .onSnapshot({ snapshot ->

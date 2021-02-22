@@ -4,8 +4,12 @@ import redux.RAction
 import shopping.model.User
 
 open class UserEvent: RAction
-class UserSignedIn(val user: User): UserEvent()
-class UserSignedOut: UserEvent()
+data class UserSignedIn(val user: User): UserEvent()
+class UserSignedOut: UserEvent() {
+  override fun toString(): String {
+    return "UserSignedOut"
+  }
+}
 
 fun userEventHandler(state: User? = null, action: RAction): User? = when (action) {
   is UserSignedIn -> action.user

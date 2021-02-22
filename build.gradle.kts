@@ -17,15 +17,9 @@ repositories {
   mavenLocal()
   mavenCentral()
   jcenter()
-  maven {
-    setUrl("https://dl.bintray.com/kotlin/ktor")
-  }
-  maven {
-    setUrl("https://dl.bintray.com/kotlin/kotlinx")
-  }
-  maven {
-    setUrl("https://dl.bintray.com/kotlin/kotlin-js-wrappers")
-  }
+  maven { setUrl("https://dl.bintray.com/kotlin/ktor") }
+  maven { setUrl("https://dl.bintray.com/kotlin/kotlinx") }
+  maven { setUrl("https://dl.bintray.com/kotlin/kotlin-js-wrappers") }
 }
 kotlin {
   jvm {
