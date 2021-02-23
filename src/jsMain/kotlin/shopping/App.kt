@@ -6,7 +6,9 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import react.*
 import react.redux.useDispatch
+import react.redux.useSelector
 import react.router.dom.browserRouter
+import react.router.dom.redirect
 import react.router.dom.route
 import react.router.dom.switch
 import redux.WrapperAction
@@ -21,6 +23,7 @@ val scope = MainScope()
 val app = functionalComponent<RProps> {
 
   val dispatch = useDispatch<UserEvent, WrapperAction>()
+  val user = useSelector<User?, User?>{it}
 
   fun signOut() {
     dispatch(UserSignedOut())
@@ -30,22 +33,21 @@ val app = functionalComponent<RProps> {
     dispatch(UserSignedIn(user))
   }
 
-  useEffect {
+  useEffect(emptyList()) {
     scope.launch {
       authStateChanged.collect {
         it?.let {
           createUserProfile(it.toUser())
             .onSnapshot({ snapshot ->
-              val user: User? = decode(snapshot.data())
-              user?.let { signIn(user) } ?: signOut()
-            }, {console.log(it.message)})
+              decode<User?>(snapshot.data()) ?.let { signIn(it) } ?: signOut()
+            }, { console.log(it)} )
         } ?: signOut()
       }
     }
   }
 
   browserRouter {
-    child(header) {}
+    child(header) { }
     switch {
       route("/", exact = true) {
         child(shopping.pages.homePage) { }
@@ -53,8 +55,8 @@ val app = functionalComponent<RProps> {
       route("/shop") {
         child(shopping.pages.shopPage) { }
       }
-      route("/login") {
-        child(shopping.pages.loginPage) { }
+      route("/login", exact = true) {
+        user?.let{ redirect(to="/") } ?: child(shopping.pages.loginPage) { }
       }
     }
   }

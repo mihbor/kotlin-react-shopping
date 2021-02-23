@@ -1,5 +1,6 @@
 package shopping.components
 
+import kotlinx.browser.window
 import kotlinx.coroutines.launch
 import kotlinx.html.ButtonType
 import kotlinx.html.InputType.email
@@ -25,9 +26,14 @@ val signIn = functionalComponent<RProps> {
   val handleSubmit: (Event) -> Unit = {
     it.preventDefault()
     scope.launch {
-      firebaseAuth.signInWithEmailAndPassword(state["email"]!!, state["password"]!!)
-      setState(emptyMap())
-      console.log("Submitted sign in")
+      try {
+        firebaseAuth.signInWithEmailAndPassword(state["email"]!!, state["password"]!!)
+        setState(emptyMap())
+        console.log("Submitted sign in")
+      } catch (e: Throwable) {
+        console.log(e)
+        e.message?.let{ window.alert(it) }
+      }
     }
   }
 

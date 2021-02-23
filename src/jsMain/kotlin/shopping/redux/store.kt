@@ -4,7 +4,7 @@ import redux.*
 import shopping.model.User
 
 val loggerMiddleware:Middleware<User?, RAction, WrapperAction, RAction, WrapperAction> = { middleware ->
-  { next:(RAction) -> WrapperAction ->
+  { next ->
     { action ->
       console.log("prev state: ${middleware.getState()}")
       console.log("action: $action")
