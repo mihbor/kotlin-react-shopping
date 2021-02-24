@@ -2,17 +2,20 @@ package shopping.components
 
 import kotlinx.coroutines.launch
 import kotlinx.html.js.onClickFunction
-import react.*
+import react.RProps
+import react.child
 import react.dom.div
 import react.dom.img
-import react.redux.useSelector
+import react.functionalComponent
 import react.router.dom.routeLink
 import shopping.firebaseAuth
-import shopping.model.User
+import shopping.redux.getUser
+import shopping.redux.isCartVisible
 import shopping.scope
 
 val header = functionalComponent<RProps> {
-  val user = useSelector<User?, User?>{it}
+  val user = getUser()
+  val isCartVisible = isCartVisible()
   div(classes = "header") {
     routeLink(to = "/", className = "logo-container") {
       img(alt = "crown", src = "/static/images/crown.svg", classes = "logo") { }
@@ -38,6 +41,10 @@ val header = functionalComponent<RProps> {
       } ?: routeLink(to = "/login", className = "option") {
         +"SIGN IN"
       }
+      child(cartIcon) { }
+    }
+    if (isCartVisible) {
+      child(cartDropdown) { }
     }
   }
 }

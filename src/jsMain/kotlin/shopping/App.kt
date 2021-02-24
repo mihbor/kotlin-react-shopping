@@ -4,26 +4,29 @@ import dev.gitlive.firebase.decode
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import react.*
+import react.RProps
+import react.child
+import react.functionalComponent
 import react.redux.useDispatch
-import react.redux.useSelector
 import react.router.dom.browserRouter
 import react.router.dom.redirect
 import react.router.dom.route
 import react.router.dom.switch
+import react.useEffect
 import redux.WrapperAction
 import shopping.components.header
 import shopping.model.User
 import shopping.redux.UserEvent
 import shopping.redux.UserSignedIn
 import shopping.redux.UserSignedOut
+import shopping.redux.getUser
 
 val scope = MainScope()
 
 val app = functionalComponent<RProps> {
 
   val dispatch = useDispatch<UserEvent, WrapperAction>()
-  val user = useSelector<User?, User?>{it}
+  val user = getUser()
 
   fun signOut() {
     dispatch(UserSignedOut())
