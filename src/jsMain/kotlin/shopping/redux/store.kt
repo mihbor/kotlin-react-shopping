@@ -16,19 +16,8 @@ val combinedReducers = combineReducers<State, RAction>(
   ).mapKeys { it.key.name }
 )
 
-val loggerMiddleware:Middleware<State, RAction, WrapperAction, RAction, WrapperAction> = { middleware ->
-  { next ->
-    { action ->
-      console.log("prev state: ${middleware.getState()}")
-      console.log("action: $action")
-      val result = next(action)
-      console.log("next state: ${middleware.getState()}")
-      result
-    }
-  }
-}
 
-val middlewares = compose(applyMiddleware(loggerMiddleware), rEnhancer())
+val middlewares = compose(applyMiddleware(logger), rEnhancer())
 
 val store = createStore(combinedReducers, State(), middlewares)
 
