@@ -8,9 +8,7 @@ import react.dom.span
 import react.functionalComponent
 import react.redux.useDispatch
 import redux.WrapperAction
-import shopping.redux.CartCommand
-import shopping.redux.SetCartVisibility
-import shopping.redux.isCartVisible
+import shopping.redux.*
 
 val cartIcon = functionalComponent<RProps> {
   val dispatch = useDispatch<CartCommand, WrapperAction>()
@@ -18,7 +16,7 @@ val cartIcon = functionalComponent<RProps> {
 
   div(classes="cart-icon") {
     attrs {
-      onClickFunction={dispatch(SetCartVisibility(!isCartVisible))}
+      onClickFunction={dispatch(if(isCartVisible) HideCart() else ShowCart())}
     }
     img(alt = "shopping bag", src = "/static/images/shopping-bag.svg", classes = "shopping-icon") { }
     span(classes="item-count") {+"0"}

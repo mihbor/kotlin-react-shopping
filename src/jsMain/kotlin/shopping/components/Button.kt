@@ -10,11 +10,12 @@ import react.functionalComponent
 external interface ButtonProps : RProps {
   var type: ButtonType?
   var label: String
+  var invertColors: Boolean?
 }
 
 @JsExport
 val button = functionalComponent<ButtonProps> { props ->
-  button(type = props.type, classes="button") {
+  button(type = props.type, classes="button${if(props.invertColors ?: false) " inverted" else ""}") {
     +props.label
   }
 }

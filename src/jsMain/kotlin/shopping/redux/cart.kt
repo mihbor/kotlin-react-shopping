@@ -1,15 +1,23 @@
 package shopping.redux
 
-import react.redux.useSelector
 import redux.RAction
+import shopping.model.CartState
+import shopping.model.Item
 
 open class CartCommand: RAction
 
-data class SetCartVisibility(val visible: Boolean): CartCommand()
-
-fun cartCommandHandler(state: Boolean = false, action: RAction) = when(action) {
-  is SetCartVisibility -> action.visible
-  else -> state
+class ShowCart: CartCommand() {
+  override fun toString() = this::class.simpleName!!
+}
+class HideCart: CartCommand() {
+  override fun toString() = this::class.simpleName!!
 }
 
-fun isCartVisible() = useSelector<State, Boolean>{it.cartVisible}
+data class AddItemToCart(val item: Item): CartCommand()
+
+fun cartCommandHandler(state: CartState = CartState(), action: RAction) = when(action) {
+  is AddItemToCart -> state + action.item
+  is ShowCart -> CartState(true, state.items)
+  is HideCart -> CartState(false, state.items)
+  else -> state
+}

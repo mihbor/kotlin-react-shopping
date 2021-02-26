@@ -103,6 +103,7 @@ a {
   flex-direction: column;
   height: 350px;
   align-items: center;
+  position: relative;
 }
 .collection-item .image {
   width: 100%;
@@ -124,6 +125,20 @@ a {
 }
 .collection-item .collection-footer .price {
   width: 10%;
+}
+.collection-item .button {
+  width: 80%;
+  opacity: 0.7;
+  position: absolute;
+  top: 255px;
+  display: none;
+}
+.collection-item:hover .image {
+  opacity: 0.8;
+}
+.collection-item:hover .button {
+  opacity: 0.85;
+  display: flex;
 }
 .header {
   height: 70px;
@@ -212,11 +227,23 @@ a {
   font-weight: bolder;
   border: none;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
 }
 .button:hover {
   background-color: white;
   color: black;
   border: 1px solid black;
+}
+.button.inverted {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+.button.inverted:hover {
+  background-color: black;
+  color: white;
+  border: none;
 }
 
 .sign-in {

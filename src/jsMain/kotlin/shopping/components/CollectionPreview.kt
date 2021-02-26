@@ -13,18 +13,14 @@ external interface CollectionPreviewProps : RProps {
 }
 
 @JsExport
-val collectionPreview = functionalComponent<CollectionPreviewProps> {
+val collectionPreview = functionalComponent<CollectionPreviewProps> { props ->
   div(classes = "collection-preview"){
-    h1(classes = "title") { +it.title }
+    h1(classes = "title") { +props.title }
     div(classes = "preview") {
-      it.items.take(4).map {
+      props.items.take(4).map { item ->
         child(collectionItem) {
-          key = "${it.id}"
-          attrs {
-            name = it.name
-            price = it.price
-            imageUrl = it.imageUrl
-          }
+          key = "${item.id}"
+          attrs.item = item
         }
       }
     }
