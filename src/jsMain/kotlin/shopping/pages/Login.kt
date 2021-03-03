@@ -7,7 +7,6 @@ import react.functionalComponent
 import shopping.components.signIn
 import shopping.components.signUp
 
-@JsExport
 val loginPage = functionalComponent<RProps> {
   div(classes="login") {
     child(signIn) { }

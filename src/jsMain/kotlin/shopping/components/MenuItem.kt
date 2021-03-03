@@ -10,7 +10,6 @@ import react.router.dom.useHistory
 import styled.css
 import styled.styledDiv as div
 
-@JsExport
 val menuItem = functionalComponent<Section> { props ->
   val history = useHistory()
   div {

@@ -10,7 +10,7 @@ import react.functionalComponent
 import react.redux.useDispatch
 import redux.WrapperAction
 import shopping.model.Item
-import shopping.redux.AddItemToCart
+import shopping.redux.AddToCart
 import shopping.redux.CartCommand
 import styled.css
 import styled.styledDiv
@@ -19,7 +19,6 @@ external interface ItemProps : RProps {
   var item: Item
 }
 
-@JsExport
 val collectionItem = functionalComponent<ItemProps> { props ->
   val dispatch = useDispatch<CartCommand, WrapperAction>()
 
@@ -38,7 +37,7 @@ val collectionItem = functionalComponent<ItemProps> { props ->
       attrs {
         invertColors=true
         label="add to cart"
-        onClickFunction={ dispatch(AddItemToCart(props.item)) }
+        onClickFunction={ dispatch(AddToCart(props.item)) }
       }
     }
   }

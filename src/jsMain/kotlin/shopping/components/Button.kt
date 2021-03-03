@@ -13,7 +13,6 @@ external interface ButtonProps : RProps {
   var invertColors: Boolean?
 }
 
-@JsExport
 val button = functionalComponent<ButtonProps> { props ->
   button(type = props.type, classes="button${if(props.invertColors ?: false) " inverted" else ""}") {
     +props.label

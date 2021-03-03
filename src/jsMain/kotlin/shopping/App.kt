@@ -16,6 +16,9 @@ import react.useEffect
 import redux.WrapperAction
 import shopping.components.header
 import shopping.model.User
+import shopping.pages.checkout
+import shopping.pages.homePage
+import shopping.pages.shopPage
 import shopping.redux.UserEvent
 import shopping.redux.UserSignedIn
 import shopping.redux.UserSignedOut
@@ -53,10 +56,13 @@ val app = functionalComponent<RProps> {
     child(header) { }
     switch {
       route("/", exact = true) {
-        child(shopping.pages.homePage) { }
+        child(homePage) { }
       }
       route("/shop") {
-        child(shopping.pages.shopPage) { }
+        child(shopPage) { }
+      }
+      route("/checkout", exact = true) {
+        child(checkout) { }
       }
       route("/login", exact = true) {
         user?.let{ redirect(to="/") } ?: child(shopping.pages.loginPage) { }

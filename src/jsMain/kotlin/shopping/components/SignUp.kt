@@ -19,7 +19,6 @@ import shopping.firebaseAuth
 import shopping.model.User
 import shopping.scope
 
-@JsExport
 val signUp = functionalComponent<RProps> {
   val (state, setState) = useState(emptyMap<String, String>())
 

@@ -8,7 +8,6 @@ import shopping.getCollections
 import shopping.model.Collection
 import shopping.scope
 
-@JsExport
 val shopPage = functionalComponent<RProps> {
   val (state, setState) = useState {
     emptyList<Collection>()

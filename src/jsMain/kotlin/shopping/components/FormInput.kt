@@ -20,7 +20,6 @@ external interface FormInputProps : RProps {
   var onChangeFunction: ((Event) -> Unit)?
 }
 
-@JsExport
 val formInput = functionalComponent<FormInputProps> { props ->
   div(classes = "group") {
     input(name = props.name, type = props.type, classes = "form-input") {

@@ -12,7 +12,6 @@ external interface CollectionPreviewProps : RProps {
   var items: Array<Item>
 }
 
-@JsExport
 val collectionPreview = functionalComponent<CollectionPreviewProps> { props ->
   div(classes = "collection-preview"){
     h1(classes = "title") { +props.title }

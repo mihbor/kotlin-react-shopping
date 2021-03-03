@@ -8,7 +8,6 @@ import react.useState
 
 class Section(var id: Int, var title: String, var image: String, var size: String = "normal") : RProps
 
-@JsExport
 val directory = functionalComponent<RProps> {
   val (state, setState) = useState { listOf(
     Section(1, "hats", "/static/images/hats.jpeg"),

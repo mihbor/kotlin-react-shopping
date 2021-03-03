@@ -12,11 +12,14 @@ class ShowCart: CartCommand() {
 class HideCart: CartCommand() {
   override fun toString() = this::class.simpleName!!
 }
-
-data class AddItemToCart(val item: Item): CartCommand()
+data class AddToCart(val item: Item): CartCommand()
+data class ClearFromCart(val item: Item): CartCommand()
+data class RemoveFromCart(val item: Item): CartCommand()
 
 fun cartCommandHandler(state: CartState = CartState(), action: RAction) = when(action) {
-  is AddItemToCart -> state + action.item
+  is AddToCart -> state + action.item
+  is RemoveFromCart -> state - action.item
+  is ClearFromCart -> state.clear(action.item)
   is ShowCart -> CartState(true, state.items)
   is HideCart -> CartState(false, state.items)
   else -> state

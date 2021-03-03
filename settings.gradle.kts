@@ -5,4 +5,4 @@ pluginManagement {
     maven { setUrl("https://plugins.gradle.org/m2/") }
   }
 }
-rootProject.name = "react-kotlin-shopping"
+rootProject.name = "kotlin-react-shopping"
