@@ -13,6 +13,7 @@ val CartEntry.quantity: Int
 fun Cart.total() = entries.fold(0) { sum, entry ->
   sum + entry.item.price * entry.quantity
 }
+
 @Serializable
 data class CartState(
   val visible: Boolean = false,

@@ -1,14 +1,12 @@
 package shopping.redux
 
-import kotlinx.serialization.Serializable
-import react.redux.useSelector
 import redux.*
-import shopping.model.CartState
-import shopping.model.Item
-import shopping.model.User
-
-@Serializable
-data class State(val user: User? = null, val cart: CartState = CartState())
+import shopping.model.State
+import shopping.redux.persist.PersistConfig
+import shopping.redux.persist.persistEnhancer
+import shopping.redux.persist.persistReducer
+import shopping.redux.persist.persistStore
+import shopping.redux.persist.storage.Storage
 
 val combinedReducers = combineReducers<State, RAction>(
   mapOf(
@@ -17,12 +15,12 @@ val combinedReducers = combineReducers<State, RAction>(
   ).mapKeys { it.key.name }
 )
 
-val middlewares = compose(applyMiddleware(logger), rEnhancer())
+val middlewares = compose(applyMiddleware(logger), persistEnhancer())
 
-val store = createStore(combinedReducers, State(), middlewares)
+val persistConfig = PersistConfig(key="root", storage=Storage(State::class), whitelist=arrayOf(State::cart.name))
 
-fun getUser() = useSelector<State, User?>{ it.user }
+val persistReducer = persistReducer(persistConfig, combinedReducers)
 
-fun getCartItems() = useSelector<State, Map<Item, Int>>{ it.cart.items }
+val store = createStore(persistReducer, State(), middlewares)
 
-fun isCartVisible() = useSelector<State, Boolean>{ it.cart.visible }
+val persistor = persistStore(store)

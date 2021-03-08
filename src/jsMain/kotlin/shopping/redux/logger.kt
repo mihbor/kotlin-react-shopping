@@ -5,6 +5,7 @@ import kotlinx.serialization.json.Json
 import redux.Middleware
 import redux.RAction
 import redux.WrapperAction
+import shopping.model.State
 
 val json = Json {
     isLenient = true
@@ -15,7 +16,7 @@ val json = Json {
 }
 inline fun <reified S> stringify(state: S) = json.encodeToString(state)
 
-val logger:Middleware<State, RAction, WrapperAction, RAction, WrapperAction> = { middleware ->
+val logger: Middleware<State, RAction, WrapperAction, RAction, WrapperAction> = { middleware ->
     { next ->
         { action ->
             console.log("prev state: ${stringify(middleware.getState())}")

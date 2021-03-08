@@ -5,6 +5,8 @@ import kotlinx.browser.window
 import react.child
 import react.dom.render
 import react.redux.provider
+import shopping.redux.persist.react.PersistGate
+import shopping.redux.persistor
 import shopping.redux.store
 
 fun main() {
@@ -14,7 +16,10 @@ fun main() {
       ?.also {
         render(it) {
           provider(store) {
-            child(app) {}
+            child(PersistGate::class) {
+              attrs.persistor=persistor
+              child(app) {}
+            }
           }
         }
       }

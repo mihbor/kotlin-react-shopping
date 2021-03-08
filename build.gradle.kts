@@ -93,6 +93,8 @@ kotlin {
         implementation("dev.gitlive:firebase-auth-js:$firebaseSdkVersion")
         implementation("dev.gitlive:firebase-common-js:$firebaseSdkVersion")
         implementation("dev.gitlive:firebase-firestore-js:$firebaseSdkVersion")
+
+        implementation(npm("redux-persist", "6.0.0"))
       }
     }
     val jsTest by getting {

@@ -1,8 +1,10 @@
 package shopping.redux
 
+import react.redux.useSelector
 import redux.RAction
 import shopping.model.CartState
 import shopping.model.Item
+import shopping.model.State
 
 open class CartCommand: RAction
 
@@ -24,3 +26,7 @@ fun cartCommandHandler(state: CartState = CartState(), action: RAction) = when(a
   is HideCart -> CartState(false, state.items)
   else -> state
 }
+
+fun getCartItems() = useSelector<State, Map<Item, Int>>{ it.cart.items }
+
+fun isCartVisible() = useSelector<State, Boolean>{ it.cart.visible }

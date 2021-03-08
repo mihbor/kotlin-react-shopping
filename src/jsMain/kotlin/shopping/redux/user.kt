@@ -1,6 +1,8 @@
 package shopping.redux
 
+import react.redux.useSelector
 import redux.RAction
+import shopping.model.State
 import shopping.model.User
 
 open class UserEvent: RAction
@@ -16,3 +18,5 @@ fun userEventHandler(state: User? = null, action: RAction) = when (action) {
   is UserSignedOut -> null
   else -> state
 }
+
+fun getUser() = useSelector<State, User?>{ it.user }
