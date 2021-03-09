@@ -9,7 +9,7 @@ import shopping.model.Item
 
 external interface CollectionPreviewProps : RProps {
   var title: String
-  var items: Array<Item>
+  var items: List<Item>
 }
 
 val collectionPreview = functionalComponent<CollectionPreviewProps> { props ->

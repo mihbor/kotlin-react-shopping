@@ -10,26 +10,27 @@ import react.router.dom.useHistory
 import styled.css
 import styled.styledDiv as div
 
-val menuItem = functionalComponent<Section> { props ->
+val menuItem = functionalComponent<SectionProps> { props ->
+  val section = props.section
   val history = useHistory()
   div {
     attrs {
-      onClickFunction = { history.push(props.title) }
+      onClickFunction = { history.push("shop/${section.title}") }
     }
     css {
-      classes = mutableListOf("menu-item", props.size)
+      classes = mutableListOf("menu-item", section.size)
     }
     div {
       css {
         classes = mutableListOf("background-image")
-        backgroundImage = Image("url(${props.image})")
+        backgroundImage = Image("url(${section.image})")
       }
     }
     div {
       css {
         classes = mutableListOf("content")
       }
-      h1(classes = "title") { +props.title.toUpperCase() }
+      h1(classes = "title") { +section.title.toUpperCase() }
       span(classes = "subtitle") { +"SHOP NOW" }
     }
   }

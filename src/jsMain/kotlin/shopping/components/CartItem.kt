@@ -9,12 +9,13 @@ external interface CartItemProps : ItemProps {
   var quantity: Int
 }
 
-val cartItem = functionalComponent<CartItemProps> {
+val cartItem = functionalComponent<CartItemProps> { props ->
+  val item = props.item
   div(classes="cart-item") {
-    img(src=it.item.imageUrl, alt=it.item.name) {  }
+    img(src=item.imageUrl, alt=item.name) {  }
     div(classes="item-details") {
-      span(classes="name") { +it.item.name }
-      span(classes="price") { +"${it.quantity} x £${it.item.price}" }
+      span(classes="name") { +item.name }
+      span(classes="price") { +"${props.quantity} x £${item.price}" }
     }
   }
 }

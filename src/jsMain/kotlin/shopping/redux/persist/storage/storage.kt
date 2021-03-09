@@ -1,13 +1,13 @@
 package shopping.redux.persist.storage
 
 import kotlinx.serialization.InternalSerializationApi
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
-import shopping.redux.json
 import kotlin.js.Promise
 import kotlin.reflect.KClass
 
 @OptIn(InternalSerializationApi::class)
-class Storage<S : Any>(val c: KClass<S>) {
+class Storage<S : Any>(val c: KClass<S>, val json: Json) {
   @JsName("getItem")
   fun getItem(key: String): Promise<S?> {
     return storage.getItem(key).then{ json.decodeFromString(c.serializer(), it) }

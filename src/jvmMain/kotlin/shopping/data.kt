@@ -2,13 +2,22 @@ package shopping
 
 import shopping.model.Collection
 import shopping.model.Item
+import shopping.model.Section
+
+val sectionsData = listOf(
+  Section(1, "hats", "/static/images/hats.jpeg"),
+  Section(2, "jackets", "/static/images/jackets.jpeg"),
+  Section(3, "sneakers", "/static/images/sneakers.jpeg"),
+  Section(4, "womens", "/static/images/womens.jpeg", "large"),
+  Section(5, "mens", "/static/images/mens.jpeg", "large")
+)
 
 val collectionsData = listOf(
   Collection(
     id= 1,
     title= "Hats",
     routeName= "hats",
-    items= arrayOf(
+    items= listOf(
       Item(
         id = 1,
         name = "Brown Brim",
@@ -69,7 +78,7 @@ val collectionsData = listOf(
     id = 2,
     title = "Sneakers",
     routeName = "sneakers",
-    items = arrayOf(
+    items = listOf(
       Item(
         id = 1,
         name = "Adidas NMD",
@@ -124,7 +133,7 @@ val collectionsData = listOf(
     id = 3,
     title = "Jackets",
     routeName = "jackets",
-    items = arrayOf(
+    items = listOf(
       Item(
         id = 1,
         name = "Black Jean Shearling",
@@ -161,7 +170,7 @@ val collectionsData = listOf(
     id = 4,
     title = "Womens",
     routeName = "womens",
-    items = arrayOf(
+    items = listOf(
       Item(
         id = 1,
         name = "Blue Tanktop",
@@ -210,7 +219,7 @@ val collectionsData = listOf(
     id = 5,
     title = "Mens",
     routeName = "mens",
-    items = arrayOf(
+    items = listOf(
       Item(
         id = 1,
         name = "Camo Down Vest",

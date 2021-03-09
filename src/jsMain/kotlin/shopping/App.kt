@@ -13,22 +13,20 @@ import react.router.dom.redirect
 import react.router.dom.route
 import react.router.dom.switch
 import react.useEffect
+import redux.RAction
 import redux.WrapperAction
 import shopping.components.header
 import shopping.model.User
 import shopping.pages.checkout
 import shopping.pages.homePage
 import shopping.pages.shopPage
-import shopping.redux.UserEvent
-import shopping.redux.UserSignedIn
-import shopping.redux.UserSignedOut
-import shopping.redux.getUser
+import shopping.redux.*
 
 val scope = MainScope()
 
 val app = functionalComponent<RProps> {
 
-  val dispatch = useDispatch<UserEvent, WrapperAction>()
+  val dispatch = useDispatch<RAction, WrapperAction>()
   val user = getUser()
 
   fun signOut() {
@@ -49,6 +47,12 @@ val app = functionalComponent<RProps> {
             }, { console.log(it)} )
         } ?: signOut()
       }
+    }
+    scope.launch {
+      dispatch(PopulateSections(API.getSections()))
+    }
+    scope.launch {
+      dispatch(PopulateCollections(API.getCollections()))
     }
   }
 

@@ -1,6 +1,7 @@
 package shopping.redux
 
 import redux.*
+import shopping.json
 import shopping.model.State
 import shopping.redux.persist.PersistConfig
 import shopping.redux.persist.persistEnhancer
@@ -11,13 +12,14 @@ import shopping.redux.persist.storage.Storage
 val combinedReducers = combineReducers<State, RAction>(
   mapOf(
     State::user to ::userEventHandler,
-    State::cart to ::cartCommandHandler
+    State::cart to ::cartCommandHandler,
+    State::directory to ::directoryHandler
   ).mapKeys { it.key.name }
 )
 
 val middlewares = compose(applyMiddleware(logger), persistEnhancer())
 
-val persistConfig = PersistConfig(key="root", storage=Storage(State::class), whitelist=arrayOf(State::cart.name))
+val persistConfig = PersistConfig(key="root", storage=Storage(State::class, json), blacklist=arrayOf(State::user.name))
 
 val persistReducer = persistReducer(persistConfig, combinedReducers)
 

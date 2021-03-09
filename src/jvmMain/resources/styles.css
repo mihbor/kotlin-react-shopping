@@ -81,6 +81,11 @@ a {
   font-size: 16px;
 }
 
+.collections-overview {
+  display: flex;
+  flex-direction: column;
+}
+
 .collection-preview {
   display: flex;
   flex-direction: column;

@@ -1,32 +1,23 @@
 package shopping.pages
 
-import kotlinx.coroutines.launch
-import react.*
+import react.RProps
+import react.child
 import react.dom.div
-import shopping.components.collectionPreview
-import shopping.getCollections
-import shopping.model.Collection
-import shopping.scope
+import react.functionalComponent
+import react.router.dom.RouteResultMatch
+import react.router.dom.route
+import react.router.dom.useRouteMatch
+import shopping.components.collectionsOverview
 
 val shopPage = functionalComponent<RProps> {
-  val (state, setState) = useState {
-    emptyList<Collection>()
-  }
-  useEffect(dependencies = listOf()) {
-    scope.launch {
-      setState(getCollections())
-    }
-  }
+  val match = useRouteMatch<RProps>() as RouteResultMatch
 
   div(classes = "shop-page") {
-    state.map {
-      child(collectionPreview) {
-        key = "${it.id}"
-        attrs {
-          title = it.title
-          items = it.items
-        }
-      }
+    route(path=match.path, exact = true) {
+      child(collectionsOverview) {}
+    }
+    route(path="${match.path}/:collectionName") {
+      child(collection) {}
     }
   }
 }
