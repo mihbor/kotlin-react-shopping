@@ -9,12 +9,12 @@ import shopping.redux.getCollections
 val collectionsOverview = functionalComponent<RProps> { props ->
   val collections = getCollections()
   div(classes="collections-overview") {
-    collections.map {
+    collections.values.map { item ->
       child(collectionPreview) {
-        key = "${it.id}"
+        key = "${item.id}"
         attrs {
-          title = it.title
-          items = it.items
+          title = item.title
+          items = item.items
         }
       }
     }
