@@ -14,3 +14,6 @@ val json = Json {
 }
 
 fun propsToMap(props: RProps) = json.decodeFromString<Map<String, String>>(JSON.stringify(props))
+
+val Int.formatPrice
+        get() = "${this/100}.${(this%100).toString().padStart(2, '0')}"

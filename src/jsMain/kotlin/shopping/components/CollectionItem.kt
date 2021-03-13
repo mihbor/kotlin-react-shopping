@@ -9,6 +9,7 @@ import react.dom.span
 import react.functionalComponent
 import react.redux.useDispatch
 import redux.WrapperAction
+import shopping.formatPrice
 import shopping.model.Item
 import shopping.redux.AddToCart
 import shopping.redux.CartCommand
@@ -20,24 +21,25 @@ external interface ItemProps : RProps {
 }
 
 val collectionItem = functionalComponent<ItemProps> { props ->
+  val item = props.item
   val dispatch = useDispatch<CartCommand, WrapperAction>()
 
   div(classes = "collection-item") {
     styledDiv {
       css {
         classes = mutableListOf("image")
-        backgroundImage = Image("url(${props.item.imageUrl})")
+        backgroundImage = Image("url(${item.imageUrl})")
       }
     }
     div(classes = "collection-footer") {
-      span(classes = "name") { +props.item.name }
-      span(classes = "price") { +"£${props.item.price}" }
+      span(classes = "name") { +item.name }
+      span(classes = "price") { +"£${item.price.formatPrice}" }
     }
     button {
       attrs {
         invertColors=true
         label="add to cart"
-        onClickFunction={ dispatch(AddToCart(props.item)) }
+        onClickFunction={ dispatch(AddToCart(item)) }
       }
     }
   }

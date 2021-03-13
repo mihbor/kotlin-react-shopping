@@ -72,6 +72,7 @@ a {
 }
 .title {
   font-weight: normal;
+  margin-top: 0px;
   margin-bottom: 6px;
   font-size: 24px;
   color: black;
@@ -418,4 +419,11 @@ a {
 .checkout-item .remove-button {
   padding-left: 12px;
   cursor: pointer;
+}
+
+.test-warning {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 24px;
+  color: red;
 }

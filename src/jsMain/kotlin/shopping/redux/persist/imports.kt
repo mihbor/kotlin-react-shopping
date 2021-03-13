@@ -2,7 +2,6 @@
 @file:JsNonModule
 package shopping.redux.persist
 
-import kotlinext.js.Object
 import redux.RAction
 import redux.Reducer
 import redux.Store

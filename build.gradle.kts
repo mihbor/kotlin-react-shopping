@@ -95,6 +95,7 @@ kotlin {
         implementation("dev.gitlive:firebase-firestore-js:$firebaseSdkVersion")
 
         implementation(npm("redux-persist", "6.0.0"))
+        implementation(npm("react-stripe-checkout", "2.6.3"))
       }
     }
     val jsTest by getting {
@@ -107,12 +108,14 @@ kotlin {
 application {
   mainClassName = "shopping.ServerKt"
 }
-tasks.getByName<KotlinWebpack>("jsBrowserDevelopmentWebpack") {
+val isDevelopment = System.getenv().get("io.ktor.development") == "true"
+val webpackTask = "jsBrowser${if(isDevelopment) "Development" else "Production"}Webpack"
+tasks.getByName<KotlinWebpack>(webpackTask) {
   outputFileName = "output.js"
 }
 tasks.getByName<Jar>("jvmJar") {
-  dependsOn(tasks.getByName("jsBrowserDevelopmentWebpack"))
-  val jsBrowserWebpack = tasks.getByName<KotlinWebpack>("jsBrowserDevelopmentWebpack")
+  dependsOn(tasks.getByName(webpackTask))
+  val jsBrowserWebpack = tasks.getByName<KotlinWebpack>(webpackTask)
   from(File(jsBrowserWebpack.destinationDirectory, jsBrowserWebpack.outputFileName))
   from(File(jsBrowserWebpack.destinationDirectory, jsBrowserWebpack.outputFileName + ".map"))
 }

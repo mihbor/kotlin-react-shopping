@@ -16,8 +16,9 @@ val combinedReducers = combineReducers<State, RAction>(
     State::directory to ::directoryHandler
   ).mapKeys { it.key.name }
 )
+val devMode = true
 
-val middlewares = compose(applyMiddleware(logger), persistEnhancer())
+val middlewares = if(devMode) compose(applyMiddleware(logger), persistEnhancer()) else persistEnhancer()
 
 val persistConfig = PersistConfig(key="root", storage=Storage(State::class, json), blacklist=arrayOf(State::user.name))
 

@@ -1,6 +1,5 @@
 @file:JsModule("redux-persist/lib/storage")
 @file:JsNonModule
-
 package shopping.redux.persist.storage
 
 import kotlin.js.Promise
