@@ -8,8 +8,8 @@ val sectionsData = listOf(
   Section(1, "hats", "/static/images/hats.jpeg"),
   Section(2, "jackets", "/static/images/jackets.jpeg"),
   Section(3, "sneakers", "/static/images/sneakers.jpeg"),
-  Section(4, "womens", "/static/images/womens.jpeg", "large"),
-  Section(5, "mens", "/static/images/mens.jpeg", "large")
+  Section(4, "womens", "/static/images/womens.jpeg", true),
+  Section(5, "mens", "/static/images/mens.jpeg", true)
 )
 
 val collectionsData = listOf(

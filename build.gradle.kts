@@ -129,7 +129,7 @@ kotlin {
     browser {
       runTask {
         val contentDir = File(projectDir, "src/jvmMain/resources").absolutePath
-        devServer = KotlinWebpackConfig.DevServer(contentBase = listOf(contentDir))
+        devServer = KotlinWebpackConfig.DevServer(contentBase = listOf(contentDir), open=false)
       }
     }
   }
