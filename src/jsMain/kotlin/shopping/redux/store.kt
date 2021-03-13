@@ -1,6 +1,7 @@
 package shopping.redux
 
 import redux.*
+import shopping.devMode
 import shopping.json
 import shopping.model.State
 import shopping.redux.persist.PersistConfig
@@ -16,7 +17,6 @@ val combinedReducers = combineReducers<State, RAction>(
     State::directory to ::directoryHandler
   ).mapKeys { it.key.name }
 )
-val devMode = true
 
 val middlewares = if(devMode) compose(applyMiddleware(logger), persistEnhancer()) else persistEnhancer()
 

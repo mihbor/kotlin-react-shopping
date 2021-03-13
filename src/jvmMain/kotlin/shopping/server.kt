@@ -32,9 +32,10 @@ fun main() {
         call.respond(sectionsData)
       }
       static("/static") {
-        resources()
+        resources("static")
       }
       static {
+        resource("/kotlin-react-shopping.js")
         resource("/{...}", "index.html")
       }
     }

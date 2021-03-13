@@ -1,7 +1,6 @@
 package shopping
 
 import dev.gitlive.firebase.decode
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import react.RProps
@@ -21,8 +20,6 @@ import shopping.pages.checkout
 import shopping.pages.homePage
 import shopping.pages.shopPage
 import shopping.redux.*
-
-val scope = MainScope()
 
 val app = functionalComponent<RProps> {
 

@@ -6,7 +6,7 @@ import react.dom.div
 import react.functionalComponent
 import shopping.redux.getCollections
 
-val collectionsOverview = functionalComponent<RProps> { props ->
+val collectionsOverview = functionalComponent<RProps> {
   val collections = getCollections()
   div(classes="collections-overview") {
     collections.values.map { item ->

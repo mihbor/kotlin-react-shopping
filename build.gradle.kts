@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 val kotlinVersion = "1.4.21"
 val ktorVersion = "1.5.1"
@@ -109,17 +110,37 @@ application {
   mainClassName = "shopping.ServerKt"
 }
 val isDevelopment = System.getenv().get("io.ktor.development") == "true"
-val webpackTask = "jsBrowser${if(isDevelopment) "Development" else "Production"}Webpack"
-tasks.getByName<KotlinWebpack>(webpackTask) {
-  outputFileName = "output.js"
-}
+val webpackTaskName = "jsBrowser${if(isDevelopment) "Development" else "Production"}Webpack"
+val webpackTask = tasks.getByName<KotlinWebpack>(webpackTaskName)
+
 tasks.getByName<Jar>("jvmJar") {
-  dependsOn(tasks.getByName(webpackTask))
-  val jsBrowserWebpack = tasks.getByName<KotlinWebpack>(webpackTask)
-  from(File(jsBrowserWebpack.destinationDirectory, jsBrowserWebpack.outputFileName))
-  from(File(jsBrowserWebpack.destinationDirectory, jsBrowserWebpack.outputFileName + ".map"))
+  dependsOn(webpackTask)
+  from(
+    File(webpackTask.destinationDirectory, webpackTask.outputFileName),
+    File(webpackTask.destinationDirectory, webpackTask.outputFileName + ".map")
+  )
 }
 tasks.getByName<JavaExec>("run") {
   dependsOn(tasks.getByName<Jar>("jvmJar"))
   classpath(tasks.getByName<Jar>("jvmJar"))
+}
+kotlin {
+  js(LEGACY) {
+    browser {
+      runTask {
+        val contentDir = File(projectDir, "src/jvmMain/resources").absolutePath
+        devServer = KotlinWebpackConfig.DevServer(contentBase = listOf(contentDir))
+      }
+    }
+  }
+}
+
+tasks.create<Jar>("fatJar") {
+  manifest {
+    attributes["Main-Class"] = application.mainClassName
+  }
+  from(Callable { configurations["runtimeClasspath"].map { if (it.isDirectory) it else zipTree(it) } })
+  val jvmJar = tasks["jvmJar"]
+  dependsOn(jvmJar)
+  with(jvmJar as CopySpec)
 }
