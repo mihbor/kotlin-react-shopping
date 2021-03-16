@@ -35,7 +35,7 @@ val cartDropdown = functionalComponent<RProps> {
         attrs {
           type = ButtonType.submit
           label = "GO TO CHECKOUT"
-          onClickFunction={
+          onClickFunction = {
             history.push("/checkout")
             dispatch(HideCart())
           }

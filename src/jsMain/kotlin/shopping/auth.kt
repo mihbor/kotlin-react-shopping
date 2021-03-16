@@ -33,19 +33,7 @@ val firebase = Firebase.initialize(options=FirebaseOptions(
 
 val firebaseAuth = Firebase.auth
 
-val firestore = Firebase.firestore.js
-
 fun FirebaseUser.toUser() = User(uid, displayName, email, this.metaData!!.creationTime!!)
-
-suspend fun createUserProfile(user: User): firebase.firestore.DocumentReference {
-  val doc = firestore.doc("users/${user.id}")
-  val snapshot = doc.get().await()
-  if (!snapshot.exists && user.displayName != null) {
-    console.log("Snapshot for user ${user.email} doesn't exist, setting with display name ${user.displayName}")
-    doc.set(encode(User(user.id, user.displayName, user.email, user.createdAt), false)!!, mapOf("merge" to true)).await()
-  }
-  return doc
-}
 
 val authStateChanged = firebaseAuth.authStateChanged
 

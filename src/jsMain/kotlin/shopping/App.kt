@@ -15,6 +15,7 @@ import react.useEffect
 import redux.RAction
 import redux.WrapperAction
 import shopping.components.header
+import shopping.db.createUserProfile
 import shopping.model.User
 import shopping.pages.checkout
 import shopping.pages.homePage
@@ -48,9 +49,10 @@ val app = functionalComponent<RProps> {
     scope.launch {
       dispatch(PopulateSections(API.getSections()))
     }
-    scope.launch {
-      dispatch(PopulateCollections(API.getCollections()))
-    }
+// collections come from firbase now via Shop page
+//    scope.launch {
+//      dispatch(PopulateCollections(API.getCollections()))
+//    }
   }
 
   browserRouter {

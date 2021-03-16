@@ -1,20 +1,29 @@
 package shopping.components
 
+import kotlinx.css.Display
+import kotlinx.css.FlexDirection
+import kotlinx.css.display
+import kotlinx.css.flexDirection
 import react.RProps
 import react.child
-import react.dom.div
 import react.functionalComponent
 import shopping.redux.getCollections
+import styled.css
+import styled.styledDiv as div
 
 val collectionsOverview = functionalComponent<RProps> {
   val collections = getCollections()
-  div(classes="collections-overview") {
-    collections.values.map { item ->
+  div {
+    css {
+      display = Display.flex
+      flexDirection = FlexDirection.column
+    }
+    collections.values.map { collection ->
       child(collectionPreview) {
-        key = "${item.id}"
+        key = "${collection.id}"
         attrs {
-          title = item.title
-          items = item.items
+          title = collection.title
+          items = collection.items
         }
       }
     }

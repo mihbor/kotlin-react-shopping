@@ -14,7 +14,7 @@ import react.dom.h2
 import react.dom.span
 import react.functionalComponent
 import react.useState
-import shopping.createUserProfile
+import shopping.db.createUserProfile
 import shopping.firebaseAuth
 import shopping.model.User
 import shopping.scope

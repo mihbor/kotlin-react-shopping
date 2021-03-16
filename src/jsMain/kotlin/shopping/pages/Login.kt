@@ -9,7 +9,7 @@ import shopping.components.signUp
 
 val loginPage = functionalComponent<RProps> {
   div(classes="login") {
-    child(signIn) { }
-    child(signUp) { }
+    child(signIn)
+    child(signUp)
   }
 }

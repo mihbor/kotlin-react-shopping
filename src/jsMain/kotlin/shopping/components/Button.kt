@@ -56,7 +56,6 @@ object ButtonStyles : StyleSheet("Button", isStatic = true) {
     padding = "0 35px 0 35px"
     fontSize = LinearDimension("15px")
     textTransform = uppercase
-    fontFamily = "Open Sans Condensed"
     fontWeight = bolder
     cursor = pointer
     display = flex

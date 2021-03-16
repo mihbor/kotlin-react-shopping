@@ -13,7 +13,7 @@ import styled.css
 
 val homePage = functionalComponent<RProps> {
   div {
-    child(directory) { }
+    child(directory)
     css {
       display = flex
       flexDirection = column

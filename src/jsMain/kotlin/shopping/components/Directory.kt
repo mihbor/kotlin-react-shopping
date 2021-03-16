@@ -7,14 +7,9 @@ import kotlinx.css.JustifyContent.spaceBetween
 import react.RProps
 import react.child
 import react.functionalComponent
-import shopping.model.Section
 import shopping.redux.getSections
 import styled.css
 import styled.styledDiv as div
-
-external interface SectionProps : RProps {
-  var section: Section
-}
 
 val directory = functionalComponent<RProps> {
 

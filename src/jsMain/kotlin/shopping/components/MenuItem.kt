@@ -5,17 +5,24 @@ import kotlinx.css.Color.Companion.white
 import kotlinx.css.Cursor.pointer
 import kotlinx.css.FlexBasis.Companion.auto
 import kotlinx.css.FlexDirection.column
+import kotlinx.css.FontWeight.Companion.lighter
 import kotlinx.css.Overflow.hidden
 import kotlinx.css.Position.absolute
 import kotlinx.css.properties.*
 import kotlinx.html.js.onClickFunction
+import react.RProps
 import react.dom.h1
-import react.dom.span
 import react.functionalComponent
 import react.router.dom.useHistory
+import shopping.model.Section
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv as div
+import styled.styledSpan as span
+
+external interface SectionProps : RProps {
+  var section: Section
+}
 
 val menuItem = functionalComponent<SectionProps> { props ->
   val section = props.section
@@ -37,7 +44,10 @@ val menuItem = functionalComponent<SectionProps> { props ->
     div {
       css { +MenuItemStyles.content }
       h1(classes = "title") { +section.title.toUpperCase() }
-      span(classes = "subtitle") { +"SHOP NOW" }
+      span {
+        css { +MenuItemStyles.subtitle }
+        +"SHOP NOW"
+      }
     }
   }
 }
@@ -85,5 +95,9 @@ object MenuItemStyles : StyleSheet("MenuItem", isStatic = true) {
     border = "1px solid black"
     backgroundColor = white
     opacity = 0.7
+  }
+  val subtitle by css {
+    fontWeight = lighter
+    fontSize = LinearDimension("16px")
   }
 }

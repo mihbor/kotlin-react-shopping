@@ -46,10 +46,10 @@ val header = functionalComponent<RProps> {
           +"SIGN OUT ${it.displayName}"
         }
       } ?: routeLink(to = "/login", className = "Header-option") { +"SIGN IN" }
-      child(cartIcon) { }
+      child(cartIcon)
     }
     if (isCartVisible) {
-      child(cartDropdown) { }
+      child(cartDropdown)
     }
   }
 }

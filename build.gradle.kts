@@ -115,10 +115,10 @@ val webpackTask = tasks.getByName<KotlinWebpack>(webpackTaskName)
 
 tasks.getByName<Jar>("jvmJar") {
   dependsOn(webpackTask)
-  from(
-    File(webpackTask.destinationDirectory, webpackTask.outputFileName),
-    File(webpackTask.destinationDirectory, webpackTask.outputFileName + ".map")
-  )
+  from(File(webpackTask.destinationDirectory, webpackTask.outputFileName))
+  if(isDevelopment) {
+    from(File(webpackTask.destinationDirectory, webpackTask.outputFileName + ".map"))
+  }
 }
 tasks.getByName<JavaExec>("run") {
   dependsOn(tasks.getByName<Jar>("jvmJar"))
