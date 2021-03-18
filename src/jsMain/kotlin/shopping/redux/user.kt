@@ -5,11 +5,11 @@ import redux.RAction
 import shopping.model.State
 import shopping.model.User
 
-open class UserEvent: RAction
+interface UserEvent: RAction
 
-data class UserSignedIn(val user: User): UserEvent()
+data class UserSignedIn(val user: User): UserEvent
 
-class UserSignedOut: UserEvent() {
+class UserSignedOut: UserEvent {
   override fun toString() = this::class.simpleName!!
 }
 

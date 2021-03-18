@@ -12,4 +12,8 @@ data class Collection(val id: Int, val title: String, val routeName: String, val
 data class Section(var id: Int, var title: String, var image: String, var isLarge: Boolean = false)
 
 @Serializable
-data class DirectoryState(val sections: List<Section> = emptyList(), val collections: Map<String, Collection> = emptyMap())
+data class DirectoryState(
+  val sections: List<Section> = emptyList(),
+  val collections: Map<String, Collection> = emptyMap(),
+  val collectionsLoading: Boolean = false
+)

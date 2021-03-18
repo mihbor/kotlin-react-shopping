@@ -8,19 +8,28 @@ import react.router.dom.RouteResultMatch
 import react.router.dom.route
 import react.router.dom.useRouteMatch
 import redux.WrapperAction
+import shopping.API
 import shopping.components.collectionsOverview
 import shopping.components.withSpinner
-import shopping.db.getCollections
-import shopping.redux.PopulateCollections
+import shopping.redux.*
 import shopping.scope
 
 val shopPage = functionalComponent<RProps> {
-  val (isLoading, setLoading) = useState(true)
-  val dispatch = useDispatch<PopulateCollections, WrapperAction>()
+
+  val collections = getCollections()
+  val isLoading = collectionsLoading() || collections.isNullOrEmpty()
+  val dispatch = useDispatch<DirectoryEvent, WrapperAction>()
+
   useEffect(emptyList()) {
-    scope.launch {
-      dispatch(PopulateCollections(getCollections()))
-      setLoading(false)
+    if (collections.isNullOrEmpty()) {
+      scope.launch {
+        dispatch(CollectionsFetchStarted())
+        try {
+          dispatch(CollectionsFetchSucceeded(API.getCollections()))
+        } catch (e: Exception) {
+          dispatch(CollectionsFetchFailed(e))
+        }
+      }
     }
   }
 
