@@ -10,7 +10,7 @@ val json = Json {
   allowSpecialFloatingPointValues = true
   useArrayPolymorphism = true
   allowStructuredMapKeys = true
-  encodeDefaults = true
+  encodeDefaults = false
 }
 
 fun propsToMap(props: RProps) = json.decodeFromString<Map<String, String>>(JSON.stringify(props))

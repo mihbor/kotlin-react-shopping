@@ -15,5 +15,5 @@ data class Section(var id: Int, var title: String, var image: String, var isLarg
 data class DirectoryState(
   val sections: List<Section> = emptyList(),
   val collections: Map<String, Collection> = emptyMap(),
-  val collectionsLoading: Boolean = false
+  val collectionsFetching: Boolean = false
 )

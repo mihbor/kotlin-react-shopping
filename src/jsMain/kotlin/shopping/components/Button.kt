@@ -53,7 +53,6 @@ object ButtonStyles : StyleSheet("Button", isStatic = true) {
     height = LinearDimension("50px")
     letterSpacing = LinearDimension("0.5px")
     lineHeight = LineHeight("50px")
-    padding = "0 35px 0 35px"
     fontSize = LinearDimension("15px")
     textTransform = uppercase
     fontWeight = bolder

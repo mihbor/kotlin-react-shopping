@@ -27,11 +27,12 @@ fun directoryHandler(state: DirectoryState = DirectoryState(), action: RAction) 
   else -> state
 }
 
-
 fun getSections() = useSelector<State, List<Section>> { it.directory.sections }
 
 fun getCollections() = useSelector<State, Map<String, Collection>> { it.directory.collections }
 
 fun getCollection(name: String) = useSelector<State, Collection?> { it.directory.collections[name] }
 
-fun collectionsLoading() = useSelector<State, Boolean> { it.directory.collectionsLoading }
+fun collectionsFetching() = useSelector<State, Boolean> { it.directory.collectionsFetching }
+
+fun collectionsPresent() = useSelector<State, Boolean> { !it.directory.collections.isNullOrEmpty() }

@@ -3,11 +3,9 @@ package shopping.redux
 import redux.*
 import shopping.devMode
 import shopping.json
+import shopping.model.DirectoryState
 import shopping.model.State
-import shopping.redux.persist.PersistConfig
-import shopping.redux.persist.persistEnhancer
-import shopping.redux.persist.persistReducer
-import shopping.redux.persist.persistStore
+import shopping.redux.persist.*
 import shopping.redux.persist.storage.Storage
 
 val combinedReducers = combineReducers<State, RAction>(
@@ -20,7 +18,13 @@ val combinedReducers = combineReducers<State, RAction>(
 
 val middlewares = if(devMode) compose(applyMiddleware(logger), persistEnhancer()) else persistEnhancer()
 
-val persistConfig = PersistConfig(key="root", storage=Storage(State::class, json), blacklist=arrayOf(State::user.name))
+val persistConfig = PersistConfig(
+  key = "root",
+  storage = Storage(State::class, json),
+  blacklist = arrayOf(State::user.name), // this only works with nullable fields
+  // for non-nullable fields have to set it to default rather than null
+  transforms = arrayOf(replace(State::directory.name, DirectoryState()))
+)
 
 val persistReducer = persistReducer(persistConfig, combinedReducers)
 

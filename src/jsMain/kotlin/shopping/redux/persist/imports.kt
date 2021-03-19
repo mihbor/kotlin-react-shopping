@@ -43,7 +43,7 @@ external interface PersistConfig {
   var keyPrefix: String? // @TODO remove in v6
   var blacklist: Array<String>?
   var whitelist: Array<String>?
-  var transforms: Any?
+  var transforms: Array<Transform>?
   var throttle: Number?
   var migrate: Any?
   var stateReconciler: Any?
@@ -54,3 +54,19 @@ external interface PersistConfig {
   var timeout: Number?
   var writeFailHandler: Any?
 }
+external interface Transform {
+  var `in`: (Any, String, Any) -> Any
+  var `out`: (Any, String, Any) -> Any
+  var config: PersistConfig?
+}
+external interface TransformConfig {
+  var whitelist: Array<String>?
+  var blacklist: Array<String>?
+}
+external fun createTransform(
+  // @NOTE inbound: transform state coming from redux on its way to being serialized and stored
+  inbound: (Any, String, Any) -> Any = definedExternally,
+  // @NOTE outbound: transform state coming from storage, on its way to be rehydrated into redux
+  outbound: (Any, String, Any) -> Any = definedExternally,
+  config: TransformConfig? = definedExternally
+) : Transform

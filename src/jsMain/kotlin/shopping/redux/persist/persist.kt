@@ -5,24 +5,40 @@ import kotlinext.js.assign
 import kotlinext.js.js
 import redux.*
 
-fun PersistConfig(): PersistConfig = js("{}")
+private fun PersistConfig(): PersistConfig = js("{}")
+private fun TransformConfig(): TransformConfig = js("{}")
 
 fun PersistConfig(
   key: String,
   storage: Any,
+  /** whitelist and blacklist can only be used to exclude nullable fields, for non-nullable fields use the [replace] transform */
   whitelist: Array<String>? = null,
   blacklist: Array<String>? = null,
   serialize: Any? = false,
-  deserialize: Any? = false
-) =
-  PersistConfig().apply {
-    this.key = key
-    this.storage = storage
-    this.whitelist = whitelist
-    this.blacklist = blacklist
-    this.serialize = serialize
-    this.deserialize = deserialize
-  }
+  deserialize: Any? = false,
+  transforms: Array<Transform>? = null
+) = PersistConfig().apply {
+  this.key = key
+  this.storage = storage
+  this.whitelist = whitelist
+  this.blacklist = blacklist
+  this.serialize = serialize
+  this.deserialize = deserialize
+  this.transforms = transforms
+}
+
+fun TransformConfig(
+  whitelist: Array<String>? = null,
+  blacklist: Array<String>? = null
+) = TransformConfig().apply {
+  this.whitelist = whitelist
+  this.blacklist = blacklist
+}
+
+fun replace(key: String, value: Any) = createTransform(
+  inbound = { _, _, _ -> value },
+  config = TransformConfig(whitelist = arrayOf(key))
+)
 
 fun <S> persistEnhancer(): Enhancer<S, Action, Action, RAction, WrapperAction> = { next ->
   { reducer, initialState ->

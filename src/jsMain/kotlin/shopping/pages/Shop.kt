@@ -1,5 +1,6 @@
 package shopping.pages
 
+import kotlinx.browser.window
 import kotlinx.coroutines.launch
 import react.*
 import react.dom.div
@@ -16,18 +17,19 @@ import shopping.scope
 
 val shopPage = functionalComponent<RProps> {
 
-  val collections = getCollections()
-  val isLoading = collectionsLoading() || collections.isNullOrEmpty()
+  val isFetching = collectionsFetching()
+  val isLoaded = collectionsPresent()
   val dispatch = useDispatch<DirectoryEvent, WrapperAction>()
 
   useEffect(emptyList()) {
-    if (collections.isNullOrEmpty()) {
+    if (!isLoaded && !isFetching) {
       scope.launch {
         dispatch(CollectionsFetchStarted())
         try {
           dispatch(CollectionsFetchSucceeded(API.getCollections()))
         } catch (e: Exception) {
           dispatch(CollectionsFetchFailed(e))
+          window.alert(e.message!!)
         }
       }
     }
@@ -37,12 +39,12 @@ val shopPage = functionalComponent<RProps> {
 
   div(classes = "shop-page") {
     route(path=match.path, exact = true) {
-      withSpinner(isLoading) {
+      withSpinner(!isLoaded) {
         child(collectionsOverview)
       }
     }
     route(path="${match.path}/:collectionName") {
-      withSpinner(isLoading) {
+      withSpinner(!isLoaded) {
         child(collection)
       }
     }
