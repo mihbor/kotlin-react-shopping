@@ -1,11 +1,16 @@
 package shopping.redux
 
+import kotlinx.browser.window
+import kotlinx.coroutines.launch
 import react.redux.useSelector
 import redux.RAction
+import redux.WrapperAction
+import shopping.API
 import shopping.model.Collection
 import shopping.model.DirectoryState
 import shopping.model.Section
 import shopping.model.State
+import shopping.scope
 
 interface DirectoryEvent: RAction
 
@@ -25,6 +30,18 @@ fun directoryHandler(state: DirectoryState = DirectoryState(), action: RAction) 
   is CollectionsFetchSucceeded -> DirectoryState(state.sections, action.collections.map { it.routeName to it }.toMap(), false)
   is CollectionsFetchFailed -> DirectoryState(state.sections, state.collections, false)
   else -> state
+}
+
+fun fetchCollections(dispatch: (DirectoryEvent) -> WrapperAction) {
+  scope.launch {
+    dispatch(CollectionsFetchStarted())
+    try {
+      dispatch(CollectionsFetchSucceeded(API.getCollections()))
+    } catch (e: Exception) {
+      dispatch(CollectionsFetchFailed(e))
+      window.alert(e.message!!)
+    }
+  }
 }
 
 fun getSections() = useSelector<State, List<Section>> { it.directory.sections }
