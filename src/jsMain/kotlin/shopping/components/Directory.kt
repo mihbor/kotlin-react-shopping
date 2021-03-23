@@ -7,14 +7,25 @@ import kotlinx.css.JustifyContent.spaceBetween
 import react.RProps
 import react.child
 import react.functionalComponent
-import shopping.redux.getSections
+import react.redux.useDispatch
+import react.useEffect
+import redux.WrapperAction
+import shopping.redux.*
 import styled.css
 import styled.styledDiv as div
 
 val directory = functionalComponent<RProps> {
 
   val directory = getSections()
+  val isFetching = sectionsFetching()
+  val isLoaded = !directory.isNullOrEmpty()
+  val dispatch = useDispatch<DirectoryEvent, WrapperAction>()
 
+  useEffect(emptyList()) {
+    if (!isLoaded && !isFetching) {
+      fetchSections(dispatch)
+    }
+  }
   div {
     css {
       width = LinearDimension("100%")

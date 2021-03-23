@@ -13,7 +13,8 @@ data class Section(var id: Int, var title: String, var image: String, var isLarg
 
 @Serializable
 data class DirectoryState(
-  val sections: List<Section> = emptyList(),
   val collections: Map<String, Collection> = emptyMap(),
-  val collectionsFetching: Boolean = false
+  val collectionsFetching: Boolean = false,
+  val sections: List<Section> = emptyList(),
+  val sectionsFetching: Boolean = false
 )
