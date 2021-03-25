@@ -1,7 +1,6 @@
 package shopping.components
 
 import kotlinx.browser.window
-import kotlinx.coroutines.launch
 import kotlinx.html.ButtonType
 import kotlinx.html.InputType.*
 import kotlinx.html.js.onSubmitFunction
@@ -14,10 +13,7 @@ import react.dom.h2
 import react.dom.span
 import react.functionalComponent
 import react.useState
-import shopping.db.createUserProfile
-import shopping.firebaseAuth
-import shopping.model.User
-import shopping.scope
+import shopping.db.createUserWithEmailAndPassword
 
 val signUp = functionalComponent<RProps> {
   val (state, setState) = useState(emptyMap<String, String>())
@@ -34,18 +30,8 @@ val signUp = functionalComponent<RProps> {
       window.alert("Passwords don't match")
       console.log("Passwords don't match")
     } else {
-      scope.launch {
-        try {
-          val user = firebaseAuth.createUserWithEmailAndPassword(state["email"]!!, state["password"]!!).user
-          console.log("Overriding displayName of ${user?.displayName} with ${state["displayName"]}")
-          user?.let{
-            createUserProfile(User(it.uid, state["displayName"], it.email, it.metaData!!.creationTime!!))
-            setState(emptyMap())
-          }
-        } catch (e: Throwable) {
-          console.log(e)
-          e.message?.let(window::alert)
-        }
+      createUserWithEmailAndPassword(state["email"]!!, state["password"]!!, state["displayName"]!!) {
+        setState(emptyMap())
       }
     }
     console.log("Submitted sing up")

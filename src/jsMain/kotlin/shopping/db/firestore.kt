@@ -5,9 +5,13 @@ import dev.gitlive.firebase.decode
 import dev.gitlive.firebase.encode
 import dev.gitlive.firebase.firebase
 import dev.gitlive.firebase.firestore.firestore
+import kotlinx.browser.window
 import kotlinx.coroutines.await
+import kotlinx.coroutines.launch
+import shopping.firebaseAuth
 import shopping.model.Collection
 import shopping.model.User
+import shopping.scope
 
 val firestore = Firebase.firestore.js
 
@@ -19,6 +23,22 @@ suspend fun createUserProfile(user: User): firebase.firestore.DocumentReference 
     doc.set(encode(User(user.id, user.displayName, user.email, user.createdAt), false)!!, mapOf("merge" to true)).await()
   }
   return doc
+}
+
+fun createUserWithEmailAndPassword(email: String, password: String, displayName: String, callback: () -> Unit) {
+
+  scope.launch {
+    try {
+      val user = firebaseAuth.createUserWithEmailAndPassword(email, password).user
+      user?.let{
+        createUserProfile(User(it.uid, displayName, it.email, it.metaData!!.creationTime!!))
+        callback()
+      }
+    } catch (e: Throwable) {
+      console.log(e)
+      e.message?.let(window::alert)
+    }
+  }
 }
 
 suspend fun getCollections() = firestore.collection("collections").get().await().docs.map {
