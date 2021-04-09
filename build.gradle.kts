@@ -1,13 +1,13 @@
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
-val kotlinVersion = "1.4.21"
+val kotlinVersion = "1.4.30"
 val ktorVersion = "1.5.1"
 val serializationVersion = "1.0.1"
 val firebaseSdkVersion = "1.2.0"
 
 plugins {
-  kotlin("multiplatform") version "1.4.10"
+  kotlin("multiplatform") version "1.4.30"
   kotlin("plugin.serialization") version "1.4.0"
   application
 }
