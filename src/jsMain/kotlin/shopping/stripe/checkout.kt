@@ -3,6 +3,7 @@
 package shopping.stripe
 
 import react.*
+import shopping.components.Token
 
 external interface Props : RProps {
   var amount: Int
@@ -15,7 +16,7 @@ external interface Props : RProps {
   var panelLabel: String
   var shippingAddress: Boolean
   var stripeKey: String
-  var token: (token: Any) -> Unit
+  var token: (token: Token) -> Unit
 }
 
 @JsName("default")

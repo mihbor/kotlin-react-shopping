@@ -1,21 +1,29 @@
 package shopping.components
 
-import kotlinx.browser.window
+import kotlinx.coroutines.launch
+import kotlinx.serialization.Serializable
 import react.RProps
 import react.functionalComponent
+import shopping.API
 import shopping.formatPrice
+import shopping.model.Payment
+import shopping.scope
 import shopping.stripe.ReactStripeCheckout
 
 external interface StripeButtonProps : RProps {
   var price: Int
 }
 
-fun onToken(token: Any) {
-  console.log(JSON.stringify(token))
-  window.alert(JSON.stringify(token))
-}
+@Serializable
+data class Token(val id: String)
 
 val stripeButton = functionalComponent<StripeButtonProps> { props ->
+  fun onToken(token: Token) {
+    console.log(JSON.stringify(token))
+    scope.launch {
+      API.payment(Payment(token.id, "GBP", props.price))
+    }
+  }
   child(ReactStripeCheckout::class) {
     attrs {
       amount = props.price

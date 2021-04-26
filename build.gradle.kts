@@ -65,10 +65,12 @@ kotlin {
         implementation("io.ktor:ktor-serialization:$ktorVersion")
         implementation("io.ktor:ktor-server-core:$ktorVersion")
         implementation("io.ktor:ktor-server-netty:$ktorVersion")
-        implementation("ch.qos.logback:logback-classic:1.2.3")
+        implementation("io.ktor:ktor-client-cio:$ktorVersion")
         implementation("io.ktor:ktor-websockets:$ktorVersion")
         implementation("io.ktor:ktor-html-builder:$ktorVersion")
         implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.7.2")
+        implementation("ch.qos.logback:logback-classic:1.2.3")
+        implementation("com.stripe:stripe-java:20.47.0")
       }
     }
     val jvmTest by getting {
