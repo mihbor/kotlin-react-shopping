@@ -16,11 +16,10 @@
 
 package com.expediagroup.graphql.examples.server.ktor
 
-import io.ktor.application.Application
-import io.ktor.application.call
-import io.ktor.application.install
-import io.ktor.http.ContentType
-import io.ktor.response.respondText
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import io.ktor.application.*
+import io.ktor.http.*
+import io.ktor.response.*
 import io.ktor.routing.Routing
 import io.ktor.routing.get
 import io.ktor.routing.post
@@ -31,7 +30,7 @@ fun Application.graphQLModule() {
 
     routing {
         post("graphql") {
-            KtorServer().handle(this.call)
+            handle(this.call)
         }
 
         get("playground") {
@@ -40,6 +39,24 @@ fun Application.graphQLModule() {
     }
 }
 
+val mapper = jacksonObjectMapper()
+val ktorGraphQLServer = getGraphQLServer(mapper)
+
+/**
+ * Handle incoming Ktor Http requests and send them back to the response methods.
+ */
+suspend fun handle(applicationCall: ApplicationCall) {
+    // Execute the query against the schema
+    val result = ktorGraphQLServer.execute(applicationCall.request)
+
+    if (result != null) {
+        // write response as json
+        val json = mapper.writeValueAsString(result)
+        applicationCall.response.call.respond(json)
+    } else {
+        applicationCall.response.call.respond(HttpStatusCode.BadRequest, "Invalid request")
+    }
+}
 private fun buildPlaygroundHtml(graphQLEndpoint: String, subscriptionsEndpoint: String) =
     Application::class.java.classLoader.getResource("graphql-playground.html")?.readText()
         ?.replace("\${graphQLEndpoint}", graphQLEndpoint)

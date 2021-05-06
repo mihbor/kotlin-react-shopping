@@ -1,7 +1,6 @@
-package com.expediagroup.graphql.examples.server.ktor.schema.models
+package shopping.graphql.model
 
 import com.expediagroup.graphql.generator.scalars.ID
-import java.util.*
 
 data class Item(
     val id: ID,
