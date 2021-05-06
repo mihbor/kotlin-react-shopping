@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 val kotlinVersion = "1.4.30"
-val ktorVersion = "1.5.1"
+val ktorVersion = "1.5.4"
 val serializationVersion = "1.0.1"
 val firebaseSdkVersion = "1.2.0"
 
@@ -71,6 +71,7 @@ kotlin {
         implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.7.2")
         implementation("ch.qos.logback:logback-classic:1.2.3")
         implementation("com.stripe:stripe-java:20.47.0")
+        implementation("com.expediagroup:graphql-kotlin-server:4.1.0")
       }
     }
     val jvmTest by getting {
@@ -108,9 +109,11 @@ kotlin {
     }
   }
 }
+
 application {
-  mainClassName = "shopping.ServerKt"
+  mainClass.set("io.ktor.server.netty.EngineMain")
 }
+
 val isDevelopment = System.getenv().get("io.ktor.development") == "true"
 val webpackTaskName = "jsBrowser${if(isDevelopment) "Development" else "Production"}Webpack"
 val webpackTask = tasks.getByName<KotlinWebpack>(webpackTaskName)
