@@ -1,6 +1,5 @@
 package shopping
 
-import kotlinx.coroutines.launch
 import react.RProps
 import react.child
 import react.functionalComponent

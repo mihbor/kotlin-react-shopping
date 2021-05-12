@@ -1,11 +1,17 @@
 package shopping.redux
 
+import apollo.QueryOptions
+import graphql.gql
 import kotlinx.browser.window
+import kotlinx.coroutines.await
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.decodeFromDynamic
 import react.redux.useSelector
 import redux.RAction
 import redux.WrapperAction
 import shopping.API
+import shopping.apolloClient
+import shopping.json
 import shopping.model.Collection
 import shopping.model.DirectoryState
 import shopping.model.Section
@@ -20,7 +26,7 @@ class CollectionsFetchStarted: DirectoryEvent{
 
 data class CollectionsFetchSucceeded(val collections: List<Collection>): DirectoryEvent
 
-data class CollectionsFetchFailed(val exception: Exception): DirectoryEvent
+data class CollectionsFetchFailed(val exception: Throwable): DirectoryEvent
 
 class SectionsFetchStarted: DirectoryEvent{
   override fun toString() = this::class.simpleName!!
@@ -28,7 +34,7 @@ class SectionsFetchStarted: DirectoryEvent{
 
 data class SectionsFetchSucceeded(val sections: List<Section>): DirectoryEvent
 
-data class SectionsFetchFailed(val exception: Exception): DirectoryEvent
+data class SectionsFetchFailed(val exception: Throwable): DirectoryEvent
 
 fun directoryHandler(state: DirectoryState = DirectoryState(), action: RAction) = when (action) {
   is CollectionsFetchStarted -> state.copy(collectionsFetching = true)
@@ -43,7 +49,7 @@ fun directoryHandler(state: DirectoryState = DirectoryState(), action: RAction) 
   else -> state
 }
 
-fun fetchCollections(dispatch: (DirectoryEvent) -> WrapperAction) {
+fun fetchCollectionsRest(dispatch: (DirectoryEvent) -> WrapperAction) {
   scope.launch {
     dispatch(CollectionsFetchStarted())
     try {
@@ -51,6 +57,40 @@ fun fetchCollections(dispatch: (DirectoryEvent) -> WrapperAction) {
     } catch (e: Exception) {
       dispatch(CollectionsFetchFailed(e))
       window.alert(e.message!!)
+    }
+  }
+}
+val collectionsQuery = gql("""
+  {
+    collections {
+      id title routeName
+      items {
+        id name price imageUrl
+      }
+    }
+  }""")
+
+fun fetchCollectionsGraphQL(dispatch: (DirectoryEvent) -> WrapperAction) {
+  scope.launch {
+    dispatch(CollectionsFetchStarted())
+    val result = apolloClient.query<dynamic, Any?>((js("{}") as QueryOptions<dynamic>).apply {
+      query = collectionsQuery
+    }).await()
+    result.run {
+      if (!loading) {
+        if (data != null) {
+          val collections = json.decodeFromDynamic<List<Collection>>(data.collections)
+          console.log("GrapqhQL result: $collections")
+          dispatch(CollectionsFetchSucceeded(collections))
+        }
+        if (!errors.isNullOrEmpty()) {
+          dispatch(CollectionsFetchFailed(errors!!.first()))
+          window.alert(errors!!.first().message!!)
+          errors!!.forEach {
+            console.log("GrapqhQL error: ${JSON.stringify(it)}")
+          }
+        }
+      }
     }
   }
 }

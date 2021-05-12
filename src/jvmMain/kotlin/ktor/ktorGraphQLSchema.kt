@@ -27,7 +27,7 @@ import shopping.graphql.model.CollectionQueryService
  * needed to handle incoming requests. In a more enterprise solution you may want to load more things from
  * configuration files instead of hardcoding them.
  */
-private val config = SchemaGeneratorConfig(supportedPackages = listOf("shopping.graphql.model"))
+private val config = SchemaGeneratorConfig(supportedPackages = listOf("shopping.model", "shopping.graphql.model"))
 private val queries = listOf(
     TopLevelObject(CollectionQueryService()),
 )

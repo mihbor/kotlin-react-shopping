@@ -100,6 +100,10 @@ kotlin {
 
         implementation(npm("redux-persist", "6.0.0"))
         implementation(npm("react-stripe-checkout", "2.6.3"))
+
+        implementation(npm("react-apollo", "3.1.5"))
+        implementation(npm("apollo-boost", "0.4.9"))
+        implementation(npm("graphql", "15.5.0"))
       }
     }
     val jsTest by getting {
