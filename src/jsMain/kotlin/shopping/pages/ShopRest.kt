@@ -5,43 +5,42 @@ import react.child
 import react.dom.div
 import react.functionalComponent
 import react.redux.useDispatch
-import react.router.dom.RouteResultMatch
 import react.router.dom.route
 import react.router.dom.useRouteMatch
+import react.useEffect
 import redux.WrapperAction
-import shopping.components.collectionsOverview
+import shopping.components.redux.collectionRedux
+import shopping.components.redux.collectionsOverviewRedux
 import shopping.components.withSpinner
 import shopping.redux.DirectoryEvent
 import shopping.redux.collectionsFetching
 import shopping.redux.collectionsPresent
-import shopping.redux.fetchCollectionsGraphQL
+import shopping.redux.fetchCollectionsRest
 
-val shopPage = functionalComponent<RProps> {
+
+val shopPageRest = functionalComponent<RProps> {
 
   val isFetching = collectionsFetching()
   val isLoaded = collectionsPresent()
   val dispatch = useDispatch<DirectoryEvent, WrapperAction>()
 
-//  useEffect(emptyList()) {
-//    if (!isLoaded && !isFetching) {
-//      fetchCollectionsRest(dispatch)
-//    }
-//  }
-  if (!isLoaded && !isFetching) {
-    fetchCollectionsGraphQL(dispatch)
+  useEffect(emptyList()) {
+    if (!isLoaded && !isFetching) {
+      fetchCollectionsRest(dispatch)
+    }
   }
 
-  val match = useRouteMatch<RProps>() as RouteResultMatch
+  val match = useRouteMatch<RProps>()!!
 
   div(classes = "shop-page") {
     route(path = match.path, exact = true) {
       withSpinner(!isLoaded) {
-        child(collectionsOverview)
+        child(collectionsOverviewRedux)
       }
     }
     route(path = "${match.path}/:collectionName") {
       withSpinner(!isLoaded) {
-        child(collection)
+        child(collectionRedux)
       }
     }
   }

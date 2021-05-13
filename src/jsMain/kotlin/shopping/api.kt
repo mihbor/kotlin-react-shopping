@@ -14,6 +14,7 @@ import shopping.model.Section
 val origin = window.location.origin // only needed until https://youtrack.jetbrains.com/issue/KTOR-453 is resolved
 
 val devMode = true
+// if we are running front end in webpack server but want to hit the ktor server
 val endpoint = if (devMode) origin.replace(":8081", ":8080") else origin
 
 val http = HttpClient {

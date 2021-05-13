@@ -10,20 +10,30 @@ import react.functionalComponent
 import react.redux.useDispatch
 import react.useEffect
 import redux.WrapperAction
-import shopping.redux.*
+import shopping.graphql.fetchSectionsGraphQL
+import shopping.redux.DirectoryEvent
+import shopping.redux.fetchSectionsRest
+import shopping.redux.getSections
+import shopping.redux.sectionsFetching
+import shopping.useGraphQL
 import styled.css
 import styled.styledDiv as div
 
 val directory = functionalComponent<RProps> {
 
-  val directory = getSections()
+  val sections = getSections()
   val isFetching = sectionsFetching()
-  val isLoaded = !directory.isNullOrEmpty()
+  val isLoaded = !sections.isNullOrEmpty()
   val dispatch = useDispatch<DirectoryEvent, WrapperAction>()
-
-  useEffect(emptyList()) {
+  if (useGraphQL) {
     if (!isLoaded && !isFetching) {
-      fetchSections(dispatch)
+      fetchSectionsGraphQL(dispatch)
+    }
+  } else {
+    useEffect(emptyList()) {
+      if (!isLoaded && !isFetching) {
+        fetchSectionsRest(dispatch)
+      }
     }
   }
   div {
@@ -33,7 +43,7 @@ val directory = functionalComponent<RProps> {
       flexWrap = wrap
       justifyContent = spaceBetween
     }
-    directory.map {
+    sections.map {
       child(menuItem) {
         attrs.section = it
       }

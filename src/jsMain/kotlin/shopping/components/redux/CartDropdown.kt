@@ -1,4 +1,4 @@
-package shopping.components
+package shopping.components.redux
 
 import kotlinx.html.ButtonType
 import kotlinx.html.js.onClickFunction
@@ -10,6 +10,8 @@ import react.functionalComponent
 import react.redux.useDispatch
 import react.router.dom.useHistory
 import redux.RAction
+import shopping.components.button
+import shopping.components.cartItem
 import shopping.redux.CartCommand
 import shopping.redux.HideCart
 import shopping.redux.getCartItems

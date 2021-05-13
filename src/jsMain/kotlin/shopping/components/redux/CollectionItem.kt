@@ -1,4 +1,4 @@
-package shopping.components
+package shopping.components.redux
 
 import kotlinx.css.Image
 import kotlinx.css.backgroundImage
@@ -9,6 +9,7 @@ import react.dom.span
 import react.functionalComponent
 import react.redux.useDispatch
 import redux.WrapperAction
+import shopping.components.button
 import shopping.formatPrice
 import shopping.model.Item
 import shopping.redux.AddToCart

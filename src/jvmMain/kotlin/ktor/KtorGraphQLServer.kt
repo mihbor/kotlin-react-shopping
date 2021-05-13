@@ -16,10 +16,14 @@
 
 package com.expediagroup.graphql.examples.server.ktor
 
+import com.expediagroup.graphql.generator.execution.GraphQLContext
 import com.expediagroup.graphql.server.execution.GraphQLRequestHandler
 import com.expediagroup.graphql.server.execution.GraphQLServer
+import com.expediagroup.graphql.server.types.GraphQLRequest
+import com.expediagroup.graphql.server.types.GraphQLResponse
 import com.fasterxml.jackson.databind.ObjectMapper
-import io.ktor.request.ApplicationRequest
+import io.ktor.request.*
+import org.slf4j.LoggerFactory
 
 /**
  * Helper method for how this Ktor example creates the common [GraphQLServer] object that
@@ -32,9 +36,17 @@ class KtorGraphQLServer(
 ) : GraphQLServer<ApplicationRequest>(requestParser, contextFactory, requestHandler)
 
 fun getGraphQLServer(mapper: ObjectMapper): KtorGraphQLServer {
+    val log = LoggerFactory.getLogger("KtorGraphQLServer")
     val requestParser = KtorGraphQLRequestParser(mapper)
     val contextFactory = KtorGraphQLContextFactory()
-    val requestHandler = GraphQLRequestHandler(graphQL)
+    val requestHandler = object : GraphQLRequestHandler(graphQL) {
+        override suspend fun executeRequest(request: GraphQLRequest, context: GraphQLContext?): GraphQLResponse<*> {
+            return super.executeRequest(request, context).also {
+                log.debug(request.toString())
+                log.debug(it.toString())
+            }
+        }
+    }
 
     return KtorGraphQLServer(requestParser, contextFactory, requestHandler)
 }

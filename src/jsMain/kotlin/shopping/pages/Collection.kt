@@ -5,19 +5,19 @@ import react.child
 import react.dom.div
 import react.dom.h2
 import react.functionalComponent
-import react.router.dom.useRouteMatch
-import shopping.components.collectionItem
-import shopping.propsToMap
-import shopping.redux.getCollection
+import shopping.components.redux.collectionItem
+import shopping.model.Collection
 
-val collection = functionalComponent<RProps> {
-  val match = useRouteMatch<RProps>()
-  val collection = propsToMap(match!!.params)["collectionName"]?.let(::getCollection)
+external interface CollectionProps : RProps {
+  var collection: Collection?
+}
+val collection = functionalComponent<CollectionProps> { props ->
+  console.log("collection: ${props.collection}")
   div(classes="collection-page") {
-    collection?.let {
-      h2(classes="title") { +collection.title }
+    props.collection?.let {
+      h2(classes="title") { +it.title }
       div(classes="items") {
-        collection.items.map { item ->
+        it.items.map { item ->
           child(collectionItem) {
             key = "${item.id}"
             attrs.item = item

@@ -7,6 +7,7 @@ import kotlinx.css.FontWeight.Companion.normal
 import react.RProps
 import react.child
 import react.functionalComponent
+import shopping.components.redux.collectionItem
 import shopping.model.Item
 import styled.css
 import styled.styledDiv as div

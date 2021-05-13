@@ -7,18 +7,20 @@ import kotlinx.css.flexDirection
 import react.RProps
 import react.child
 import react.functionalComponent
-import shopping.redux.getCollections
+import shopping.model.Collection
 import styled.css
 import styled.styledDiv as div
 
-val collectionsOverview = functionalComponent<RProps> {
-  val collections = getCollections()
+external interface CollectionsOverviewProps : RProps {
+  var collections: kotlin.collections.Collection<Collection>
+}
+val collectionsOverview = functionalComponent<CollectionsOverviewProps> { props ->
   div {
     css {
       display = Display.flex
       flexDirection = FlexDirection.column
     }
-    collections.values.map { collection ->
+    props.collections.map { collection ->
       child(collectionPreview) {
         key = "${collection.id}"
         attrs {

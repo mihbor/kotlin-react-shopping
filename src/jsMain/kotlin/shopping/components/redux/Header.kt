@@ -1,4 +1,4 @@
-package shopping.components
+package shopping.components.redux
 
 import kotlinx.coroutines.launch
 import kotlinx.css.*

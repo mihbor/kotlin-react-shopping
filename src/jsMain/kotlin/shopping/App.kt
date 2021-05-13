@@ -11,12 +11,15 @@ import react.router.dom.switch
 import react.useEffect
 import redux.RAction
 import redux.WrapperAction
-import shopping.components.header
+import shopping.components.redux.header
 import shopping.pages.checkout
 import shopping.pages.homePage
-import shopping.pages.shopPage
+import shopping.pages.shopPageGraphQL
+import shopping.pages.shopPageRest
 import shopping.redux.getUser
 import shopping.redux.subscribeToAuthStateChanged
+
+const val useGraphQL = true
 
 val app = functionalComponent<RProps> {
 
@@ -34,7 +37,7 @@ val app = functionalComponent<RProps> {
         child(homePage) { }
       }
       route("/shop") {
-        child(shopPage) { }
+        child(if (useGraphQL) shopPageGraphQL else shopPageRest) { }
       }
       route("/checkout", exact = true) {
         child(checkout) { }

@@ -4,6 +4,7 @@ import react.dom.div
 import react.dom.img
 import react.dom.span
 import react.functionalComponent
+import shopping.components.redux.ItemProps
 import shopping.formatPrice
 
 external interface CartItemProps : ItemProps {

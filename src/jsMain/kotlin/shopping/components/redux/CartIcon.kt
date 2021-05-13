@@ -1,4 +1,4 @@
-package shopping.components
+package shopping.components.redux
 
 import kotlinx.html.js.onClickFunction
 import react.RProps
