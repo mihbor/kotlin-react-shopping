@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 val kotlinVersion = "1.4.30"
+val preKotlinVersion = "pre.144-kotlin-$kotlinVersion"
 val ktorVersion = "1.5.4"
 val serializationVersion = "1.0.1"
 val firebaseSdkVersion = "1.2.0"
@@ -32,17 +33,12 @@ kotlin {
   js {
     browser {
       binaries.executable()
-      webpackTask {
+      commonWebpackConfig {
         cssSupport.enabled = true
       }
       runTask {
-        cssSupport.enabled = true
-      }
-      testTask {
-        useKarma {
-          useChromeHeadless()
-          webpackConfig.cssSupport.enabled = true
-        }
+        val contentDir = File(projectDir, "src/jvmMain/resources").absolutePath
+        devServer = KotlinWebpackConfig.DevServer(contentBase = listOf(contentDir), open = false)
       }
     }
   }
@@ -82,13 +78,13 @@ kotlin {
     val jsMain by getting {
       dependencies {
         implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.7.2")
-        implementation("org.jetbrains:kotlin-styled:5.2.0-pre.144-kotlin-$kotlinVersion")
+        implementation("org.jetbrains:kotlin-styled:5.2.0-$preKotlinVersion")
 
-        implementation("org.jetbrains:kotlin-react:17.0.1-pre.144-kotlin-$kotlinVersion")
-        implementation("org.jetbrains:kotlin-react-dom:17.0.1-pre.144-kotlin-$kotlinVersion")
-        implementation("org.jetbrains:kotlin-react-router-dom:5.2.0-pre.144-kotlin-$kotlinVersion")
-        implementation("org.jetbrains:kotlin-react-redux:7.2.1-pre.144-kotlin-$kotlinVersion")
-        implementation("org.jetbrains:kotlin-redux:4.0.5-pre.144-kotlin-$kotlinVersion")
+        implementation("org.jetbrains:kotlin-react:17.0.1-$preKotlinVersion")
+        implementation("org.jetbrains:kotlin-react-dom:17.0.1-$preKotlinVersion")
+        implementation("org.jetbrains:kotlin-react-router-dom:5.2.0-$preKotlinVersion")
+        implementation("org.jetbrains:kotlin-react-redux:7.2.1-$preKotlinVersion")
+        implementation("org.jetbrains:kotlin-redux:4.0.5-$preKotlinVersion")
 
         implementation("io.ktor:ktor-client-js:$ktorVersion")
         implementation("io.ktor:ktor-client-json-js:$ktorVersion")
@@ -132,16 +128,6 @@ tasks.getByName<Jar>("jvmJar") {
 tasks.getByName<JavaExec>("run") {
   dependsOn(tasks.getByName<Jar>("jvmJar"))
   classpath(tasks.getByName<Jar>("jvmJar"))
-}
-kotlin {
-  js(LEGACY) {
-    browser {
-      runTask {
-        val contentDir = File(projectDir, "src/jvmMain/resources").absolutePath
-        devServer = KotlinWebpackConfig.DevServer(contentBase = listOf(contentDir), open=false)
-      }
-    }
-  }
 }
 
 tasks.create<Jar>("fatJar") {

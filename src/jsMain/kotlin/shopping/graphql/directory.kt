@@ -14,7 +14,6 @@ import shopping.model.Section
 import shopping.redux.*
 import shopping.scope
 
-
 val sectionsQuery = gql("""{
   sections {
     id title image isLarge
