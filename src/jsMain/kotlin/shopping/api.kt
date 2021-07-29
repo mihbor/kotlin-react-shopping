@@ -35,7 +35,7 @@ object API {
   suspend fun payment(payment: Payment) {
     val response: HttpResponse = http.post(endpoint + paymentPath) {
       contentType(ContentType.Application.Json)
-      this.body = payment
+      body = payment
     }
     console.log(response.readText())
   }

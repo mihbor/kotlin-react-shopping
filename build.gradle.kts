@@ -1,14 +1,14 @@
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
-val kotlinVersion = "1.4.30"
-val preKotlinVersion = "pre.144-kotlin-$kotlinVersion"
-val ktorVersion = "1.5.4"
+val kotlinVersion = "1.5.0"
+val preKotlinVersion = "pre.156-kotlin-$kotlinVersion"
+val ktorVersion = "1.6.0"
 val serializationVersion = "1.0.1"
 val firebaseSdkVersion = "1.2.0"
 
 plugins {
-  kotlin("multiplatform") version "1.4.30"
+  kotlin("multiplatform") version "1.5.0"
   kotlin("plugin.serialization") version "1.4.0"
   application
 }
@@ -19,9 +19,7 @@ repositories {
   mavenLocal()
   mavenCentral()
   jcenter()
-  maven { setUrl("https://dl.bintray.com/kotlin/ktor") }
-  maven { setUrl("https://dl.bintray.com/kotlin/kotlinx") }
-  maven { setUrl("https://dl.bintray.com/kotlin/kotlin-js-wrappers") }
+  maven { setUrl("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers/") }
 }
 kotlin {
   jvm {
@@ -78,12 +76,12 @@ kotlin {
     val jsMain by getting {
       dependencies {
         implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.7.2")
-        implementation("org.jetbrains:kotlin-styled:5.2.0-$preKotlinVersion")
+        implementation("org.jetbrains:kotlin-styled:5.3.0-$preKotlinVersion")
 
-        implementation("org.jetbrains:kotlin-react:17.0.1-$preKotlinVersion")
-        implementation("org.jetbrains:kotlin-react-dom:17.0.1-$preKotlinVersion")
+        implementation("org.jetbrains:kotlin-react:17.0.2-$preKotlinVersion")
+        implementation("org.jetbrains:kotlin-react-dom:17.0.2-$preKotlinVersion")
         implementation("org.jetbrains:kotlin-react-router-dom:5.2.0-$preKotlinVersion")
-        implementation("org.jetbrains:kotlin-react-redux:7.2.1-$preKotlinVersion")
+        implementation("org.jetbrains:kotlin-react-redux:7.2.3-$preKotlinVersion")
         implementation("org.jetbrains:kotlin-redux:4.0.5-$preKotlinVersion")
 
         implementation("io.ktor:ktor-client-js:$ktorVersion")

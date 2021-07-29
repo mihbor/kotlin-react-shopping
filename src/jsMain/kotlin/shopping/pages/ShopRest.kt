@@ -33,12 +33,12 @@ val shopPageRest = functionalComponent<RProps> {
   val match = useRouteMatch<RProps>()!!
 
   div(classes = "shop-page") {
-    route(path = match.path, exact = true) {
+    route(match.path, exact = true) {
       withSpinner(!isLoaded) {
         child(collectionsOverviewRedux)
       }
     }
-    route(path = "${match.path}/:collectionName") {
+    route("${match.path}/:collectionName") {
       withSpinner(!isLoaded) {
         child(collectionRedux)
       }

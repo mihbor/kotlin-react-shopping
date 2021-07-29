@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.expediagroup.graphql.examples.server.ktor
+package shopping.graphql
 
 import com.expediagroup.graphql.server.execution.GraphQLRequestParser
 import com.expediagroup.graphql.server.types.GraphQLServerRequest

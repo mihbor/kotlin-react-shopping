@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.expediagroup.graphql.examples.server.ktor
+package shopping
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.ktor.application.*
@@ -24,6 +24,7 @@ import io.ktor.routing.Routing
 import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.routing
+import shopping.graphql.getGraphQLServer
 
 fun Application.graphQLModule() {
     install(Routing)
