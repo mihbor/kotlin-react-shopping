@@ -34,7 +34,7 @@ val app = functionalComponent<RProps> {
     child(header) { }
     switch {
       route("/", exact = true) {
-        child(homePage) { }
+        child(homePage)
       }
       route("/shop") {
         child(if (useGraphQL) shopPageGraphQL else shopPageRest) { }

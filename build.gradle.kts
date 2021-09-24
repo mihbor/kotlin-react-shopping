@@ -5,7 +5,7 @@ val kotlinVersion = "1.5.0"
 val preKotlinVersion = "pre.156-kotlin-$kotlinVersion"
 val ktorVersion = "1.6.0"
 val serializationVersion = "1.0.1"
-val firebaseSdkVersion = "1.2.0"
+val firebaseSdkVersion = "1.4.2"
 
 plugins {
   kotlin("multiplatform") version "1.5.0"
@@ -74,7 +74,7 @@ kotlin {
     }
     val jsMain by getting {
       dependencies {
-        implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.7.2")
+        implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.7.3")
         implementation("org.jetbrains:kotlin-styled:5.3.0-$preKotlinVersion")
 
         implementation("org.jetbrains:kotlin-react:17.0.2-$preKotlinVersion")

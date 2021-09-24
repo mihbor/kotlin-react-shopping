@@ -5,6 +5,7 @@ import graphql.gql
 import kotlinx.browser.window
 import kotlinx.coroutines.await
 import kotlinx.coroutines.launch
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.decodeFromDynamic
 import redux.WrapperAction
 import shopping.apolloClient
@@ -20,6 +21,7 @@ val sectionsQuery = gql("""{
   }
 }""")
 
+@ExperimentalSerializationApi
 fun fetchSectionsGraphQL(dispatch: (DirectoryEvent) -> WrapperAction) {
   scope.launch {
     dispatch(SectionsFetchStarted())
@@ -61,6 +63,7 @@ val collectionByTitleQuery = gql("""
   }
 """)
 
+@ExperimentalSerializationApi
 fun fetchCollectionsGraphQL(dispatch: (DirectoryEvent) -> WrapperAction) {
   scope.launch {
     dispatch(CollectionsFetchStarted())

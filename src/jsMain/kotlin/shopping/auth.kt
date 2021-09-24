@@ -1,13 +1,11 @@
 package shopping
 
-import dev.gitlive.firebase.*
+import dev.gitlive.firebase.Firebase
+import dev.gitlive.firebase.FirebaseOptions
 import dev.gitlive.firebase.auth.FirebaseUser
 import dev.gitlive.firebase.auth.auth
-import dev.gitlive.firebase.firestore.firestore
-import kotlinx.coroutines.await
-import kotlinx.coroutines.launch
+import dev.gitlive.firebase.initialize
 import shopping.model.User
-import kotlin.js.Date
 
 //val firebaseJs = firebase.initializeApp(
 //  mapOf(
@@ -23,7 +21,7 @@ import kotlin.js.Date
 val firebase = Firebase.initialize(options=FirebaseOptions(
 
   apiKey= "AIzaSyDKADz-w308PlrURBCwRE8sq6XTDAG7NpU",
-//  authDomain= "kotlin-react-shopping-2e94a.firebaseapp.com",
+  authDomain= "kotlin-react-shopping-2e94a.firebaseapp.com",
   projectId= "kotlin-react-shopping-2e94a",
   storageBucket= "kotlin-react-shopping-2e94a.appspot.com",
   gcmSenderId= "393803784285",
@@ -40,6 +38,6 @@ val authStateChanged = firebaseAuth.authStateChanged
 //@JsExport
 //fun signInWithGoogle() {
 //  scope.launch {
-//    auth.js.signInWithPopup(firebase.auth.GoogleAuthProvider())
+//    firebaseAuth.js.signInWithPopup(dev.gitlive.firebase.firebase.auth.GoogleAuthProvider())
 //  }
 //}

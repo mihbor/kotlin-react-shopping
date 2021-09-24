@@ -1,12 +1,13 @@
 package apollo
 
 import apollo.react.QueryHookOptions
+import kotlinext.js.jsObject
 
-fun <TVariables> QueryOptions(query: Any) = (js("{}") as QueryOptions<TVariables>).apply {
+fun <TVariables> QueryOptions(query: Any) = jsObject<QueryOptions<TVariables>> {
   this.query = query
 }
 
-fun <TData> QueryHookOptions(variablesProvider: dynamic.() -> Unit) = (js("{}") as QueryHookOptions<TData, dynamic>).apply {
+fun <TData> QueryHookOptions(variablesProvider: dynamic.() -> Unit) = jsObject<QueryHookOptions<TData, dynamic>> {
   val variables = js("{}")
   variablesProvider.invoke(variables)
   this.variables = variables

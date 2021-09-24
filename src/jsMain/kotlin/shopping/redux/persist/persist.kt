@@ -3,10 +3,11 @@ package shopping.redux.persist
 import kotlinext.js.Object
 import kotlinext.js.assign
 import kotlinext.js.js
+import kotlinext.js.jsObject
 import redux.*
 
-private fun PersistConfig(): PersistConfig = js("{}")
-private fun TransformConfig(): TransformConfig = js("{}")
+private fun PersistConfig(): PersistConfig = jsObject()
+private fun TransformConfig(): TransformConfig = jsObject()
 
 fun PersistConfig(
   key: String,
