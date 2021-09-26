@@ -5,6 +5,7 @@ import kotlinx.coroutines.launch
 import kotlinx.html.ButtonType
 import kotlinx.html.InputType.email
 import kotlinx.html.InputType.password
+import kotlinx.html.js.onClickFunction
 import kotlinx.html.js.onSubmitFunction
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.events.Event
@@ -17,8 +18,7 @@ import react.functionalComponent
 import react.useState
 import shopping.firebaseAuth
 import shopping.scope
-
-//import signInWithGoogle
+import shopping.signInWithGoogle
 
 val signIn = functionalComponent<RProps> {
   val (state, setState) = useState(emptyMap<String, String>())
@@ -73,12 +73,12 @@ val signIn = functionalComponent<RProps> {
           label="Sign In"
         }
       }
-//      button {
-//        attrs {
-//          onClickFunction={signInWithGoogle()}
-//          label="Sign In With Google"
-//        }
-//      }
+      button {
+        attrs {
+          onClickFunction={ signInWithGoogle() }
+          label="Sign In With Google"
+        }
+      }
     }
   }
 }

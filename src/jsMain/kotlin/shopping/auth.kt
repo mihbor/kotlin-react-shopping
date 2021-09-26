@@ -5,6 +5,7 @@ import dev.gitlive.firebase.FirebaseOptions
 import dev.gitlive.firebase.auth.FirebaseUser
 import dev.gitlive.firebase.auth.auth
 import dev.gitlive.firebase.initialize
+import kotlinx.coroutines.launch
 import shopping.model.User
 
 //val firebaseJs = firebase.initializeApp(
@@ -18,7 +19,7 @@ import shopping.model.User
 //    "measurementId" to "G-FFJPXB75FG"
 //  )
 //)
-val firebase = Firebase.initialize(options=FirebaseOptions(
+val firebaseApp = Firebase.initialize(options=FirebaseOptions(
 
   apiKey= "AIzaSyDKADz-w308PlrURBCwRE8sq6XTDAG7NpU",
   authDomain= "kotlin-react-shopping-2e94a.firebaseapp.com",
@@ -35,9 +36,10 @@ fun FirebaseUser.toUser() = User(uid, displayName, email, this.metaData!!.creati
 
 val authStateChanged = firebaseAuth.authStateChanged
 
-//@JsExport
-//fun signInWithGoogle() {
-//  scope.launch {
-//    firebaseAuth.js.signInWithPopup(dev.gitlive.firebase.firebase.auth.GoogleAuthProvider())
-//  }
-//}
+val google: dynamic = shopping.firebase.firebase.auth.GoogleAuthProvider()
+
+fun signInWithGoogle() {
+  scope.launch {
+    firebaseAuth.js.signInWithPopup(google)
+  }
+}
